@@ -21,39 +21,27 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-return [
-    'directories' => [
-        '.build',
-        '.ddev',
-        '.git',
-        '.github',
-        'bin',
-        'build',
-        'public',
-        'tailor-version-upload',
-        'tests',
-        'var',
-        'vendor',
-    ],
-    'files' => [
-        'DS_Store',
-        'CODE_OF_CONDUCT.md',
-        'codecov.yml',
-        'CODEOWNERS',
-        'composer.lock',
-        'CONTRIBUTING.md',
-        'crowdin.yaml',
-        'dependency-checker.json',
-        'docker-compose.yml',
-        'editorconfig',
-        'gitattributes',
-        'gitignore',
-        'packaging_exclude.php',
-        'php-cs-fixer.php',
-        'phpstan-baseline.neon',
-        'phpstan.php',
-        'phpunit.xml',
-        'rector.php',
-        'renovate.json',
-    ],
-];
+namespace EliasHaeussler\Typo3SitemapRobots\Tests\Functional\Fixtures;
+
+use Psr\Http\Message;
+use Psr\Http\Server;
+use TYPO3\CMS\Core;
+
+/**
+ * DummyRequestHandler
+ *
+ * @author Elias Häußler <elias@haeussler.dev>
+ * @license GPL-2.0-or-later
+ * @internal
+ */
+final class DummyRequestHandler implements Server\RequestHandlerInterface
+{
+    public function __construct(
+        public Message\ResponseInterface $expectedResponse = new Core\Http\Response(),
+    ) {}
+
+    public function handle(Message\ServerRequestInterface $request): Message\ResponseInterface
+    {
+        return $this->expectedResponse;
+    }
+}

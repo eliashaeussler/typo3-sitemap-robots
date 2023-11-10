@@ -1,0 +1,21 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#3 \\$context \\(array\\<string, mixed\\>\\) of method EliasHaeussler\\\\Typo3SitemapRobots\\\\Tests\\\\Functional\\\\Fixtures\\\\DummyLogger\\:\\:log\\(\\) should be contravariant with parameter \\$context \\(array\\) of method Psr\\\\Log\\\\AbstractLogger\\:\\:log\\(\\)$#"
+			count: 1
+			path: Tests/Functional/Fixtures/DummyLogger.php
+
+		-
+			message: "#^Parameter \\#3 \\$context \\(array\\<string, mixed\\>\\) of method EliasHaeussler\\\\Typo3SitemapRobots\\\\Tests\\\\Functional\\\\Fixtures\\\\DummyLogger\\:\\:log\\(\\) should be contravariant with parameter \\$context \\(array\\) of method Psr\\\\Log\\\\LoggerInterface\\:\\:log\\(\\)$#"
+			count: 1
+			path: Tests/Functional/Fixtures/DummyLogger.php
+
+		-
+			message: "#^EliasHaeussler\\\\Typo3SitemapRobots\\\\Tests\\\\Functional\\\\Fixtures\\\\DummyRequestFactory\\:\\:__construct\\(\\) does not call parent constructor from TYPO3\\\\CMS\\\\Core\\\\Http\\\\RequestFactory\\.$#"
+			count: 1
+			path: Tests/Functional/Fixtures/DummyRequestFactory.php
+
+		-
+			message: "#^Parameter \\#3 \\$options \\(array\\<string, mixed\\>\\) of method EliasHaeussler\\\\Typo3SitemapRobots\\\\Tests\\\\Functional\\\\Fixtures\\\\DummyRequestFactory\\:\\:request\\(\\) should be contravariant with parameter \\$options \\(array\\) of method TYPO3\\\\CMS\\\\Core\\\\Http\\\\RequestFactory\\:\\:request\\(\\)$#"
+			count: 1
+			path: Tests/Functional/Fixtures/DummyRequestFactory.php
