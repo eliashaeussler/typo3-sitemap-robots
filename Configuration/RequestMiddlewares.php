@@ -25,8 +25,8 @@ use EliasHaeussler\Typo3SitemapRobots\Middleware;
 
 return [
     'frontend' => [
-        'eliashaeussler/typo3-sitemap-robots/sitemap-configuration-handler' => [
-            'target' => Middleware\SitemapConfigurationHandler::class,
+        'eliashaeussler/typo3-sitemap-robots/robots-txt-sitemap-handler' => [
+            'target' => Middleware\RobotsTxtSitemapHandler::class,
             'before' => [
                 'typo3/cms-frontend/static-route-resolver',
             ],

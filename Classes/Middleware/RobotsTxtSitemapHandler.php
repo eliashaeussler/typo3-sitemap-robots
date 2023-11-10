@@ -30,12 +30,12 @@ use Psr\Log;
 use TYPO3\CMS\Core;
 
 /**
- * SitemapConfigurationHandler
+ * RobotsTxtSitemapHandler
  *
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-2.0-or-later
  */
-final class SitemapConfigurationHandler implements Server\MiddlewareInterface
+final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
 {
     public function __construct(
         private readonly Typo3SitemapLocator\Sitemap\SitemapLocator $sitemapLocator,
