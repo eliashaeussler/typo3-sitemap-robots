@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf" date="2023-11-10T08:15:27Z" product-name="sitemap_robots">
+		<header/>
+		<body>
+			<trans-unit id="site.sitemap_robots_inject.label" resname="site.sitemap_robots_inject.label">
+				<source>Inject XML sitemaps into robots.txt</source>
+			</trans-unit>
+			<trans-unit id="site.sitemap_robots_inject.description" resname="site.sitemap_robots_inject.description">
+				<source>Check the button below to inject all located XML sitemaps into robots.txt.
+Note: Only valid sitemaps will be injected. If a located XML sitemap does not exist, it is skipped to avoid errors in robots.txt.</source>
+			</trans-unit>
+			<trans-unit id="site.sitemap_robots_inject.item.checked" resname="site.sitemap_robots_inject.item.checked">
+				<source>Enabled</source>
+			</trans-unit>
+			<trans-unit id="site.sitemap_robots_inject.item.unchecked" resname="site.sitemap_robots_inject.item.unchecked">
+				<source>Disabled</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

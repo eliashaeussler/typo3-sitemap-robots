@@ -1,0 +1,17 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  EliasHaeussler\Typo3SitemapRobots\:
+    resource: '../Classes/*'
+
+  EliasHaeussler\Typo3SitemapRobots\Middleware\SitemapConfigurationHandler:
+    arguments:
+      $sitemapLocator: '@sitemap_robots.sitemap_locator_without_robots_txt_provider'
+
+  sitemap_robots.sitemap_locator_without_robots_txt_provider:
+    class: 'EliasHaeussler\Typo3SitemapLocator\Sitemap\SitemapLocator'
+    arguments:
+      $providers: !tagged_iterator { tag: 'sitemap_locator.sitemap_provider', default_priority_method: 'getPriority', exclude: ['EliasHaeussler\Typo3SitemapLocator\Sitemap\Provider\RobotsTxtProvider'] }
