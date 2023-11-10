@@ -4,7 +4,7 @@
 
 # TYPO3 extension `sitemap_robots`
 
-[![Coverage](https://img.shields.io/codecov/c/github/eliashaeussler/typo3-sitemap-robots?logo=codecov&token=NzyH1gX3Rz)](https://codecov.io/gh/eliashaeussler/typo3-sitemap-robots)
+[![Coverage](https://img.shields.io/codecov/c/github/eliashaeussler/typo3-sitemap-robots?logo=codecov&token=0lBkWpVYlM)](https://codecov.io/gh/eliashaeussler/typo3-sitemap-robots)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/eliashaeussler/typo3-sitemap-robots?logo=codeclimate)](https://codeclimate.com/github/eliashaeussler/typo3-sitemap-robots/maintainability)
 [![CGL](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/cgl.yaml?label=cgl&logo=github)](https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/cgl.yaml)
 [![Tests](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/tests.yaml?label=tests&logo=github)](https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/tests.yaml)
