@@ -26,10 +26,15 @@ namespace EliasHaeussler\Typo3SitemapRobots\Tests\Functional\Middleware;
 use EliasHaeussler\Typo3SitemapLocator;
 use EliasHaeussler\Typo3SitemapRobots as Src;
 use EliasHaeussler\Typo3SitemapRobots\Tests;
+
+use function file_put_contents;
+
 use PHPUnit\Framework;
 use Psr\Log;
 use TYPO3\CMS\Core;
 use TYPO3\TestingFramework;
+
+use function unlink;
 
 /**
  * RobotsTxtSitemapHandlerTest
@@ -50,7 +55,6 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
     protected bool $initializeDatabase = false;
 
     private Tests\Functional\Fixtures\DummyRequestFactory $requestFactory;
-    private Typo3SitemapLocator\Cache\SitemapsCache $cache;
     private Tests\Functional\Fixtures\DummyLogger $logger;
     private Src\Middleware\RobotsTxtSitemapHandler $subject;
     private Core\Site\Entity\Site $site;
@@ -61,29 +65,32 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
     {
         parent::setUp();
 
+        $cache = $this->get(Typo3SitemapLocator\Cache\SitemapsCache::class);
+
         $this->requestFactory = new Tests\Functional\Fixtures\DummyRequestFactory();
-        $this->cache = $this->get(Typo3SitemapLocator\Cache\SitemapsCache::class);
         $this->logger = new Tests\Functional\Fixtures\DummyLogger();
         $this->subject = new Src\Middleware\RobotsTxtSitemapHandler(
-            new Typo3SitemapLocator\Sitemap\SitemapLocator(
-                $this->requestFactory,
-                $this->cache,
-                new Core\EventDispatcher\NoopEventDispatcher(),
-                [
-                    new Typo3SitemapLocator\Sitemap\Provider\DefaultProvider(),
-                ],
+            new Src\Resource\RobotsTxtEnhancer(
+                new Typo3SitemapLocator\Sitemap\SitemapLocator(
+                    $this->requestFactory,
+                    $cache,
+                    new Core\EventDispatcher\NoopEventDispatcher(),
+                    [
+                        new Typo3SitemapLocator\Sitemap\Provider\DefaultProvider(),
+                    ],
+                ),
             ),
+            $this->get(Src\Resource\RobotsTxtFactory::class),
             $this->logger,
         );
         $this->site = $this->createSite();
-        $this->request = (new Core\Http\ServerRequest('https://typo3-testing.local/robots.txt'))
-            ->withAttribute('site', $this->site)
-        ;
+        $this->request = new Core\Http\ServerRequest('https://typo3-testing.local/robots.txt');
+        $this->request = $this->request->withAttribute('site', $this->site);
         $this->handler = new Tests\Functional\Fixtures\DummyRequestHandler();
 
         // Flush sitemaps cache
         foreach ($this->site->getLanguages() as $siteLanguage) {
-            $this->cache->remove($this->site, $siteLanguage);
+            $cache->remove($this->site, $siteLanguage);
         }
     }
 
@@ -128,6 +135,52 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
         $actual = $this->subject->process($this->request, $this->handler);
 
         self::assertStringContainsString(self::getExpectedContent(), (string)$actual->getBody());
+    }
+
+    #[Framework\Attributes\Test]
+    public function processStreamsLocalRobotsTxtFileWithLocatedSitemapsInjected(): void
+    {
+        $filename = $this->instancePath . '/robots.txt';
+
+        file_put_contents(
+            $filename,
+            <<<TXT
+User-Agent: *
+Allow: /
+TXT,
+        );
+
+        $this->requestFactory->handler->append(new Core\Http\Response());
+
+        $expected = self::getExpectedContent();
+
+        $actual = $this->subject->process($this->request, $this->handler);
+
+        self::assertSame(
+            <<<TXT
+User-Agent: *
+Allow: /
+{$expected}
+TXT,
+            (string)$actual->getBody(),
+        );
+
+        unlink($filename);
+    }
+
+    #[Framework\Attributes\Test]
+    public function processDoesNothingIfHandledResponseIsNotOkay(): void
+    {
+        $response = new Core\Http\Response();
+        $response = $response->withStatus(404);
+
+        $this->requestFactory->handler->append(new Core\Http\Response());
+        $this->handler->expectedResponse = $response;
+
+        $actual = $this->subject->process($this->request, $this->handler);
+
+        self::assertSame($response, $actual);
+        self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
 
     #[Framework\Attributes\Test]

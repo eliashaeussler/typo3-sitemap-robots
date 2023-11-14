@@ -7,7 +7,7 @@ services:
   EliasHaeussler\Typo3SitemapRobots\:
     resource: '../Classes/*'
 
-  EliasHaeussler\Typo3SitemapRobots\Middleware\RobotsTxtSitemapHandler:
+  EliasHaeussler\Typo3SitemapRobots\Resource\RobotsTxtEnhancer:
     arguments:
       $sitemapLocator: '@sitemap_robots.sitemap_locator_without_robots_txt_provider'
 

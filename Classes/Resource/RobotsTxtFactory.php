@@ -21,16 +21,40 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3SitemapRobots;
+namespace EliasHaeussler\Typo3SitemapRobots\Resource;
+
+use EliasHaeussler\Typo3SitemapRobots\Exception;
+use Psr\Http\Message;
+use RuntimeException;
+use TYPO3\CMS\Core;
 
 /**
- * Extension
+ * RobotsTxtFactory
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
- * @codeCoverageIgnore
  */
-final class Extension
+final class RobotsTxtFactory
 {
-    public const KEY = 'sitemap_robots';
+    public function __construct(
+        private readonly Message\StreamFactoryInterface $streamFactory,
+    ) {}
+
+    /**
+     * @throws Exception\FileDoesNotExist
+     */
+    public function fromLocalFile(string $file): Message\ResponseInterface
+    {
+        if (!file_exists($file)) {
+            throw new Exception\FileDoesNotExist($file);
+        }
+
+        try {
+            $body = $this->streamFactory->createStreamFromFile($file, 'a+');
+        } catch (RuntimeException) {
+            throw new Exception\FileDoesNotExist($file);
+        }
+
+        return new Core\Http\Response($body, 200, ['Content-Type' => 'text/plain; charset=utf-8']);
+    }
 }

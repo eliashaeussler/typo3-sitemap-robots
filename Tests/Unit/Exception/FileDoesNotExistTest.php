@@ -21,16 +21,27 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3SitemapRobots;
+namespace EliasHaeussler\Typo3SitemapRobots\Tests\Unit\Exception;
+
+use EliasHaeussler\Typo3SitemapRobots as Src;
+use PHPUnit\Framework;
+use TYPO3\TestingFramework;
 
 /**
- * Extension
+ * FileDoesNotExistTest
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
- * @codeCoverageIgnore
  */
-final class Extension
+#[Framework\Attributes\CoversClass(Src\Exception\FileDoesNotExist::class)]
+final class FileDoesNotExistTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    public const KEY = 'sitemap_robots';
+    #[Framework\Attributes\Test]
+    public function constructorReturnsExceptionForGivenFile(): void
+    {
+        $actual = new Src\Exception\FileDoesNotExist('foo');
+
+        self::assertSame('The file "foo" does not exist or is not readable.', $actual->getMessage());
+        self::assertSame(1699954412, $actual->getCode());
+    }
 }

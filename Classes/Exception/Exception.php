@@ -21,16 +21,12 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3SitemapRobots;
+namespace EliasHaeussler\Typo3SitemapRobots\Exception;
 
 /**
- * Extension
+ * Exception
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
- * @codeCoverageIgnore
  */
-final class Extension
-{
-    public const KEY = 'sitemap_robots';
-}
+abstract class Exception extends \Exception {}

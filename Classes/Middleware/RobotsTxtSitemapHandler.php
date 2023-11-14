@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3SitemapRobots\Middleware;
 
 use EliasHaeussler\Typo3SitemapLocator;
+use EliasHaeussler\Typo3SitemapRobots\Exception;
+use EliasHaeussler\Typo3SitemapRobots\Resource;
 use Psr\Http\Message;
 use Psr\Http\Server;
 use Psr\Log;
@@ -32,13 +34,14 @@ use TYPO3\CMS\Core;
 /**
  * RobotsTxtSitemapHandler
  *
- * @author Elias Häußler <e.haeussler@familie-redlich.de>
+ * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
 final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
 {
     public function __construct(
-        private readonly Typo3SitemapLocator\Sitemap\SitemapLocator $sitemapLocator,
+        private readonly Resource\RobotsTxtEnhancer $enhancer,
+        private readonly Resource\RobotsTxtFactory $factory,
         private readonly Log\LoggerInterface $logger,
     ) {}
 
@@ -70,10 +73,23 @@ final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
             $siteLanguage = $site->getDefaultLanguage();
         }
 
-        $response = $handler->handle($request);
+        // Resolve path to local robots.txt file
+        $localPath = $this->buildRobotsTxtFilePath();
+
+        // Stream existing file or pass request to next middleware to resolve robots.txt
+        try {
+            $response = $this->factory->fromLocalFile($localPath);
+        } catch (Exception\FileDoesNotExist) {
+            $response = $handler->handle($request);
+        }
+
+        // Early return if response is not okay
+        if ($response->getStatusCode() !== 200) {
+            return $response;
+        }
 
         try {
-            return $this->injectSitemapsIntoRobotsTxt($site, $siteLanguage, $response);
+            $this->enhancer->enhanceWithSitemaps($response->getBody(), $site, $siteLanguage);
         } catch (Typo3SitemapLocator\Exception\Exception $exception) {
             $this->logger->warning(
                 'Unable to inject XML sitemaps into robots.txt at {url}.',
@@ -82,38 +98,13 @@ final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
                     'exception' => $exception,
                 ],
             );
-
-            // Early return if sitemaps cannot be located
-            return $response;
-        }
-    }
-
-    /**
-     * @throws Typo3SitemapLocator\Exception\BaseUrlIsNotSupported
-     * @throws Typo3SitemapLocator\Exception\SitemapIsMissing
-     */
-    private function injectSitemapsIntoRobotsTxt(
-        Core\Site\Entity\Site $site,
-        Core\Site\Entity\SiteLanguage $siteLanguage,
-        Message\ResponseInterface $response,
-    ): Message\ResponseInterface {
-        $sitemaps = $this->sitemapLocator->locateBySite($site, $siteLanguage);
-
-        $body = $response->getBody();
-        $body->seek(0, SEEK_END);
-
-        foreach ($sitemaps as $sitemap) {
-            if ($this->sitemapLocator->isValidSitemap($sitemap)) {
-                $body->write(PHP_EOL);
-                $body->write($this->decorateSitemapForRobotsTxt($sitemap));
-            }
         }
 
         return $response;
     }
 
-    private function decorateSitemapForRobotsTxt(Typo3SitemapLocator\Domain\Model\Sitemap $sitemap): string
+    private function buildRobotsTxtFilePath(): string
     {
-        return sprintf('Sitemap: %s', $sitemap->getUri());
+        return Core\Core\Environment::getPublicPath() . DIRECTORY_SEPARATOR . 'robots.txt';
     }
 }

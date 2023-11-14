@@ -21,16 +21,21 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3SitemapRobots;
+namespace EliasHaeussler\Typo3SitemapRobots\Exception;
 
 /**
- * Extension
+ * FileDoesNotExist
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
- * @codeCoverageIgnore
  */
-final class Extension
+final class FileDoesNotExist extends Exception
 {
-    public const KEY = 'sitemap_robots';
+    public function __construct(string $file)
+    {
+        parent::__construct(
+            sprintf('The file "%s" does not exist or is not readable.', $file),
+            1699954412,
+        );
+    }
 }
