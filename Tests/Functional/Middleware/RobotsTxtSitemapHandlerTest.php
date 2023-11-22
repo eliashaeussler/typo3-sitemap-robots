@@ -26,15 +26,10 @@ namespace EliasHaeussler\Typo3SitemapRobots\Tests\Functional\Middleware;
 use EliasHaeussler\Typo3SitemapLocator;
 use EliasHaeussler\Typo3SitemapRobots as Src;
 use EliasHaeussler\Typo3SitemapRobots\Tests;
-
-use function file_put_contents;
-
 use PHPUnit\Framework;
 use Psr\Log;
 use TYPO3\CMS\Core;
 use TYPO3\TestingFramework;
-
-use function unlink;
 
 /**
  * RobotsTxtSitemapHandlerTest

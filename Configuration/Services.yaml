@@ -13,5 +13,6 @@ services:
 
   sitemap_robots.sitemap_locator_without_robots_txt_provider:
     class: 'EliasHaeussler\Typo3SitemapLocator\Sitemap\SitemapLocator'
-    arguments:
-      $providers: !tagged_iterator { tag: 'sitemap_locator.sitemap_provider', default_priority_method: 'getPriority', exclude: ['EliasHaeussler\Typo3SitemapLocator\Sitemap\Provider\RobotsTxtProvider'] }
+  # @todo Enable once support for TYPO3 v11 is dropped
+  #   arguments:
+  #     $providers: !tagged_iterator { tag: 'sitemap_locator.sitemap_provider', default_priority_method: 'getPriority', exclude: ['EliasHaeussler\Typo3SitemapLocator\Sitemap\Provider\RobotsTxtProvider'] }

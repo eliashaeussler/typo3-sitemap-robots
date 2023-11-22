@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS extension "sitemap_robots".
  *
@@ -19,20 +21,21 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-/** @noinspection PhpUndefinedVariableInspection */
-$EM_CONF[$_EXTKEY] = [
-    'title' => 'Sitemap Robots',
-    'description' => 'Enhances robots.txt with sitemap configurations to improve site visibility in terms of SEO. Injection of XML sitemaps can be managed on a per-site basis. Supports static routes as well as injection into local files.',
-    'category' => 'fe',
-    'version' => '0.1.0',
-    'state' => 'beta',
-    'author' => 'Elias Häußler',
-    'author_email' => 'elias@haeussler.dev',
-    'constraints' => [
-        'depends' => [
-            'typo3' => '11.5.0-12.4.99',
-            'php' => '8.1.0-8.3.99',
-            'sitemap_locator' => '0.1.0-0.1.99',
-        ],
-    ],
-];
+namespace EliasHaeussler\Typo3SitemapRobots\Exception;
+
+/**
+ * UnsupportedServiceRequested
+ *
+ * @author Elias Häußler <elias@haeussler.dev>
+ * @license GPL-2.0-or-later
+ */
+final class UnsupportedServiceRequested extends Exception
+{
+    public function __construct(string $expected, string $actual)
+    {
+        parent::__construct(
+            sprintf('The service "%s" is not supported as only "%s" is supported.', $actual, $expected),
+            1700669900,
+        );
+    }
+}

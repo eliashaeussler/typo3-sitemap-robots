@@ -20,7 +20,7 @@
 		"psr/http-server-middleware": "^1.0",
 		"psr/log": "^2.0 || ^3.0",
 		"symfony/dependency-injection": "^6.1",
-		"typo3/cms-core": "~12.4.0"
+		"typo3/cms-core": "~11.5.0 || ~12.4.0"
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^1.7",
@@ -33,7 +33,7 @@
 		"phpunit/phpcov": "^9.0",
 		"saschaegerer/phpstan-typo3": "^1.9",
 		"ssch/typo3-rector": "^1.4",
-		"typo3/cms-seo": "~12.4.0",
+		"typo3/cms-seo": "~11.5.0 || ~12.4.0",
 		"typo3/coding-standards": "^0.7.1",
 		"typo3/testing-framework": "^8.0"
 	},
