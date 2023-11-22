@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 
 use EliasHaeussler\RectorConfig\Config\Config;
+use Rector\Arguments\Rector\ClassMethod\ArgumentAdderRector;
 use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
@@ -43,6 +44,9 @@ return static function (RectorConfig $rectorConfig): void {
         ->withTYPO3()
         ->skip(AnnotationToAttributeRector::class, [
             __DIR__ . '/Classes/Extension.php',
+        ])
+        ->skip(ArgumentAdderRector::class, [
+            __DIR__ . '/Configuration/Services.php',
         ])
         ->apply()
     ;
