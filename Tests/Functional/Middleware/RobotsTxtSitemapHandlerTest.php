@@ -26,7 +26,6 @@ namespace EliasHaeussler\Typo3SitemapRobots\Tests\Functional\Middleware;
 use EliasHaeussler\Typo3SitemapLocator;
 use EliasHaeussler\Typo3SitemapRobots as Src;
 use EliasHaeussler\Typo3SitemapRobots\Tests;
-use PHPUnit\Framework;
 use Psr\Log;
 use TYPO3\CMS\Core;
 use TYPO3\TestingFramework;
@@ -36,8 +35,8 @@ use TYPO3\TestingFramework;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
+ * @covers \EliasHaeussler\Typo3SitemapRobots\Middleware\RobotsTxtSitemapHandler
  */
-#[Framework\Attributes\CoversClass(Src\Middleware\RobotsTxtSitemapHandler::class)]
 final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     use Src\Tests\Functional\SiteTrait;
@@ -89,7 +88,9 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
         }
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processDoesNothingIfSiteIsNotAvailable(): void
     {
         $request = $this->request->withoutAttribute('site');
@@ -99,7 +100,9 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processDoesNothingIfSitemapInjectionIsDisabled(): void
     {
         $site = $this->createSite(false);
@@ -110,7 +113,9 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processDoesNothingIfRequestedUrlIsNotSupported(): void
     {
         $request = $this->request->withUri(
@@ -122,7 +127,9 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processInjectsLocatedSitemapsOfDefaultSiteLanguageIfNoSiteLanguageIsAvailableInRequest(): void
     {
         $this->requestFactory->handler->append(new Core\Http\Response());
@@ -132,7 +139,9 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
         self::assertStringContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processStreamsLocalRobotsTxtFileWithLocatedSitemapsInjected(): void
     {
         $filename = $this->instancePath . '/robots.txt';
@@ -163,7 +172,9 @@ TXT,
         unlink($filename);
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processDoesNothingIfHandledResponseIsNotOkay(): void
     {
         $response = new Core\Http\Response();
@@ -178,7 +189,9 @@ TXT,
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processInjectsLocatedSitemapsOfGivenSiteLanguage(): void
     {
         $this->requestFactory->handler->append(new Core\Http\Response());
@@ -191,7 +204,9 @@ TXT,
         self::assertStringContainsString(self::getExpectedContent('de'), (string)$actual->getBody());
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processLogsWarningIfSitemapCannotBeResolved(): void
     {
         $site = $this->createSite(true, '/');

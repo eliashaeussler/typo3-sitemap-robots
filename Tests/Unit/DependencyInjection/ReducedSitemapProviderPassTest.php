@@ -25,7 +25,6 @@ namespace EliasHaeussler\Typo3SitemapRobots\Tests\Unit\DependencyInjection;
 
 use EliasHaeussler\Typo3SitemapLocator;
 use EliasHaeussler\Typo3SitemapRobots as Src;
-use PHPUnit\Framework;
 use Symfony\Component\DependencyInjection;
 use TYPO3\TestingFramework;
 
@@ -34,10 +33,10 @@ use TYPO3\TestingFramework;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
+ * @covers \EliasHaeussler\Typo3SitemapRobots\DependencyInjection\ReducedSitemapProviderPass
  *
  * @todo Remove once support for TYPO3 v11 is dropped
  */
-#[Framework\Attributes\CoversClass(Src\DependencyInjection\ReducedSitemapProviderPass::class)]
 final class ReducedSitemapProviderPassTest extends TestingFramework\Core\Unit\UnitTestCase
 {
     private Src\DependencyInjection\ReducedSitemapProviderPass $subject;
@@ -59,7 +58,9 @@ final class ReducedSitemapProviderPassTest extends TestingFramework\Core\Unit\Un
         $this->addProvider(Typo3SitemapLocator\Sitemap\Provider\SiteProvider::class);
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processDoesNothingIfDefinitionIsMissingInContainer(): void
     {
         $container = new DependencyInjection\ContainerBuilder();
@@ -70,7 +71,9 @@ final class ReducedSitemapProviderPassTest extends TestingFramework\Core\Unit\Un
         self::assertEquals($expected, $container);
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processThrowsExceptionIfDefinitionHasUnsupportedClassConfigured(): void
     {
         $this->container->setDefinition('foo', new DependencyInjection\Definition());
@@ -85,7 +88,9 @@ final class ReducedSitemapProviderPassTest extends TestingFramework\Core\Unit\Un
         $this->subject->process($this->container);
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processSkipsAbstractProviders(): void
     {
         $definition = $this->addProvider(Typo3SitemapLocator\Sitemap\Provider\DefaultProvider::class, 'dummy');
@@ -96,7 +101,9 @@ final class ReducedSitemapProviderPassTest extends TestingFramework\Core\Unit\Un
         $this->assertProviderIsMissing('dummy');
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processSkipsProvidersWithoutClass(): void
     {
         $definition = $this->addProvider(Typo3SitemapLocator\Sitemap\Provider\DefaultProvider::class, 'dummy');
@@ -107,7 +114,9 @@ final class ReducedSitemapProviderPassTest extends TestingFramework\Core\Unit\Un
         $this->assertProviderIsMissing('dummy');
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processSkipsUnsupportedProviders(): void
     {
         $this->addProvider(self::class, 'dummy');
@@ -117,7 +126,9 @@ final class ReducedSitemapProviderPassTest extends TestingFramework\Core\Unit\Un
         $this->assertProviderIsMissing('dummy');
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processSkipsProvidersToExclude(): void
     {
         $this->subject->process($this->container);
@@ -125,7 +136,9 @@ final class ReducedSitemapProviderPassTest extends TestingFramework\Core\Unit\Un
         $this->assertProviderIsMissing(Typo3SitemapLocator\Sitemap\Provider\RobotsTxtProvider::class);
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function processOrdersProvidersByPriority(): void
     {
         $this->subject->process($this->container);

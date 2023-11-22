@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3SitemapRobots\Tests\Unit\Exception;
 
 use EliasHaeussler\Typo3SitemapRobots as Src;
-use PHPUnit\Framework;
 use TYPO3\TestingFramework;
 
 /**
@@ -32,11 +31,13 @@ use TYPO3\TestingFramework;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
+ * @covers \EliasHaeussler\Typo3SitemapRobots\Exception\FileDoesNotExist
  */
-#[Framework\Attributes\CoversClass(Src\Exception\FileDoesNotExist::class)]
 final class FileDoesNotExistTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function constructorReturnsExceptionForGivenFile(): void
     {
         $actual = new Src\Exception\FileDoesNotExist('foo');

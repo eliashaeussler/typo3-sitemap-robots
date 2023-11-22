@@ -35,8 +35,8 @@ use TYPO3\TestingFramework;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
+ * @covers \EliasHaeussler\Typo3SitemapRobots\Resource\RobotsTxtFactory
  */
-#[Framework\Attributes\CoversClass(Src\Resource\RobotsTxtFactory::class)]
 final class RobotsTxtFactoryTest extends TestingFramework\Core\Unit\UnitTestCase
 {
     private Message\StreamFactoryInterface&Framework\MockObject\MockObject $streamFactory;
@@ -50,7 +50,9 @@ final class RobotsTxtFactoryTest extends TestingFramework\Core\Unit\UnitTestCase
         $this->subject = new Src\Resource\RobotsTxtFactory($this->streamFactory);
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function fromFileThrowsExceptionIfFileDoesNotExist(): void
     {
         $this->expectExceptionObject(
@@ -60,7 +62,9 @@ final class RobotsTxtFactoryTest extends TestingFramework\Core\Unit\UnitTestCase
         $this->subject->fromFile('foo');
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function fromFileThrowsExceptionIfFileCannotBeOpened(): void
     {
         $file = __FILE__;
@@ -76,7 +80,9 @@ final class RobotsTxtFactoryTest extends TestingFramework\Core\Unit\UnitTestCase
         $this->subject->fromFile($file);
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function fromFileReturnsResponseForGivenFile(): void
     {
         $file = __FILE__;
@@ -89,7 +95,9 @@ final class RobotsTxtFactoryTest extends TestingFramework\Core\Unit\UnitTestCase
         self::assertSame(['text/plain; charset=utf-8'], $actual->getHeader('Content-Type'));
     }
 
-    #[Framework\Attributes\Test]
+    /**
+     * @test
+     */
     public function fromContentsReturnsResponseForGivenContents(): void
     {
         $subject = new Src\Resource\RobotsTxtFactory(new Core\Http\StreamFactory());
