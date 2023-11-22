@@ -43,7 +43,7 @@ final class RobotsTxtFactory
     /**
      * @throws Exception\FileDoesNotExist
      */
-    public function fromLocalFile(string $file): Message\ResponseInterface
+    public function fromFile(string $file): Message\ResponseInterface
     {
         if (!file_exists($file)) {
             throw new Exception\FileDoesNotExist($file);
@@ -55,6 +55,18 @@ final class RobotsTxtFactory
             throw new Exception\FileDoesNotExist($file);
         }
 
+        return $this->createResponse($body);
+    }
+
+    public function fromContents(string $contents): Message\ResponseInterface
+    {
+        $body = $this->streamFactory->createStream($contents);
+
+        return $this->createResponse($body);
+    }
+
+    private function createResponse(Message\StreamInterface $body): Core\Http\Response
+    {
         return new Core\Http\Response($body, 200, ['Content-Type' => 'text/plain; charset=utf-8']);
     }
 }

@@ -78,7 +78,7 @@ final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
 
         // Stream existing file or pass request to next middleware to resolve robots.txt
         try {
-            $response = $this->factory->fromLocalFile($localPath);
+            $response = $this->factory->fromFile($localPath);
         } catch (Exception\FileDoesNotExist) {
             $response = $handler->handle($request);
         }

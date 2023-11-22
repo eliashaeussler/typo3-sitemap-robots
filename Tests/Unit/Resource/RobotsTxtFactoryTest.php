@@ -51,17 +51,17 @@ final class RobotsTxtFactoryTest extends TestingFramework\Core\Unit\UnitTestCase
     }
 
     #[Framework\Attributes\Test]
-    public function fromLocalFileThrowsExceptionIfFileDoesNotExist(): void
+    public function fromFileThrowsExceptionIfFileDoesNotExist(): void
     {
         $this->expectExceptionObject(
             new Src\Exception\FileDoesNotExist('foo'),
         );
 
-        $this->subject->fromLocalFile('foo');
+        $this->subject->fromFile('foo');
     }
 
     #[Framework\Attributes\Test]
-    public function fromLocalFileThrowsExceptionIfFileCannotBeOpened(): void
+    public function fromFileThrowsExceptionIfFileCannotBeOpened(): void
     {
         $file = __FILE__;
 
@@ -73,18 +73,30 @@ final class RobotsTxtFactoryTest extends TestingFramework\Core\Unit\UnitTestCase
             new Src\Exception\FileDoesNotExist($file),
         );
 
-        $this->subject->fromLocalFile($file);
+        $this->subject->fromFile($file);
     }
 
     #[Framework\Attributes\Test]
-    public function fromLocalFileReturnsStreamForGivenFile(): void
+    public function fromFileReturnsResponseForGivenFile(): void
     {
         $file = __FILE__;
         $subject = new Src\Resource\RobotsTxtFactory(new Core\Http\StreamFactory());
 
-        $actual = $subject->fromLocalFile($file);
+        $actual = $subject->fromFile($file);
 
         self::assertStringEqualsFile($file, (string)$actual->getBody());
+        self::assertSame(200, $actual->getStatusCode());
+        self::assertSame(['text/plain; charset=utf-8'], $actual->getHeader('Content-Type'));
+    }
+
+    #[Framework\Attributes\Test]
+    public function fromContentsReturnsResponseForGivenContents(): void
+    {
+        $subject = new Src\Resource\RobotsTxtFactory(new Core\Http\StreamFactory());
+
+        $actual = $subject->fromContents('foo');
+
+        self::assertSame('foo', (string)$actual->getBody());
         self::assertSame(200, $actual->getStatusCode());
         self::assertSame(['text/plain; charset=utf-8'], $actual->getHeader('Content-Type'));
     }
