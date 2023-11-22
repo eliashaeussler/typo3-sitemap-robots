@@ -22,7 +22,7 @@
 /** @noinspection PhpUndefinedVariableInspection */
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Sitemap Robots',
-    'description' => 'Enhances robots.txt with sitemap configurations to improve site visibility in terms of SEO.',
+    'description' => 'Enhances robots.txt with sitemap configurations to improve site visibility in terms of SEO. Injection of XML sitemaps can be managed on a per-site basis. Supports static routes as well as injection into local files.',
     'category' => 'fe',
     'version' => '0.1.0',
     'state' => 'beta',
