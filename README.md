@@ -15,12 +15,14 @@
 
 An extension for TYPO3 CMS that enhances `robots.txt` from site configuration with
 located XML sitemaps. Injection of sitemap configuration can be managed on a per-site
-basis and is done by an additional frontend middleware.
+basis and is done by an additional frontend middleware. The extension supports
+static routes as well as injection into local files.
 
 ## 🚀 Features
 
 * Middleware to inject sitemap configurations into `robots.txt`
 * Manage sitemap injection on a per-site basis using site configuration
+* Supports static routes and local files
 * Compatible with TYPO3 12.4 LTS
 
 ## 🔥 Installation

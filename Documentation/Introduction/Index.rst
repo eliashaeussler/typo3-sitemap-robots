@@ -27,6 +27,7 @@ Features
 -   :ref:`Middleware <usage>` to inject sitemap configurations into :file:`robots.txt`
 -   :ref:`Configuration <configuration>` option to manage sitemap injection on a
     per-site basis
+-   Supports :ref:`static routes <static-route>` and :ref:`local files <local-file>`
 -   Compatible with TYPO3 12.4 LTS (see :ref:`version matrix <version-matrix>`)
 
 ..  _support:

@@ -36,7 +36,8 @@ Enhance :file:`robots.txt` with located XML sitemaps
 An extension for TYPO3 CMS that enhances :file:`robots.txt` from site
 configuration with located XML sitemaps. Injection of sitemap configuration
 can be managed on a per-site basis and is done by an additional frontend
-middleware.
+middleware. The extension supports static routes as well as injection into
+local files.
 
 ----
 

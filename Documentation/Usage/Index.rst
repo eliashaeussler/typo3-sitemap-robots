@@ -6,16 +6,24 @@
 Usage
 =====
 
-You can use this extension to inject XML sitemaps into :file:`robots.txt` in case
-your :file:`robots.txt` is configured as :ref:`static route <t3coreapi:sitehandling-staticRoutes>`
-in your site configuration. Once injection of XML sitemaps is enabled for a site,
-a custom middleware reacts on requests to :file:`robots.txt` and tries to locate
-XML sitemaps for the current site, which will then be injected into the response body.
+At the moment, the extension provides two possible ways to inject located
+XML sitemaps in a requested :file:`robots.txt` file. This section describes
+how to properly use each of them and what steps are necessary to enable all
+provided features.
+
+..  toctree::
+    :maxdepth: 1
+
+    StaticRoute
+    LocalFile
 
 ..  _usage-example:
 
 Example
 =======
+
+The following example describes what processes happen when a :file:`robots.txt`
+file is requested and XML sitemaps get injected.
 
 ..  rst-class:: bignums
 
