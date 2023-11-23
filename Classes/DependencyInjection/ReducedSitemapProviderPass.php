@@ -85,7 +85,7 @@ final class ReducedSitemapProviderPass implements DependencyInjection\Compiler\C
                 // Include leading underscore because of issues within ArrayUtility::flatten()
                 $priority = '_' . $providerClass::getPriority();
                 $providers[$priority] ??= [];
-                $providers[$priority][] = new DependencyInjection\Reference($providerServiceId);
+                $providers[$priority][$providerServiceId] = new DependencyInjection\Reference($providerServiceId);
             }
         }
 
