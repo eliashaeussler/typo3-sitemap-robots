@@ -6,6 +6,10 @@ services:
 
   EliasHaeussler\Typo3SitemapRobots\:
     resource: '../Classes/*'
+    exclude:
+      - '../Classes/DependencyInjection/*'
+      - '../Classes/Exception/*'
+      - '../Classes/Extension.php'
 
   EliasHaeussler\Typo3SitemapRobots\Resource\RobotsTxtEnhancer:
     arguments:
