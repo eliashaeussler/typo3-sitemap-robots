@@ -23,10 +23,10 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3SitemapRobots\Tests\Functional\Middleware;
 
+use EliasHaeussler\TransientLogger;
 use EliasHaeussler\Typo3SitemapLocator;
 use EliasHaeussler\Typo3SitemapRobots as Src;
 use EliasHaeussler\Typo3SitemapRobots\Tests;
-use Psr\Log;
 use TYPO3\CMS\Core;
 use TYPO3\TestingFramework;
 
@@ -49,7 +49,7 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
     protected bool $initializeDatabase = false;
 
     private Tests\Functional\Fixtures\DummyRequestFactory $requestFactory;
-    private Tests\Functional\Fixtures\DummyLogger $logger;
+    private TransientLogger\TransientLogger $logger;
     private Src\Middleware\RobotsTxtSitemapHandler $subject;
     private Core\Site\Entity\Site $site;
     private Core\Http\ServerRequest $request;
@@ -62,7 +62,7 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
         $cache = $this->get(Typo3SitemapLocator\Cache\SitemapsCache::class);
 
         $this->requestFactory = new Tests\Functional\Fixtures\DummyRequestFactory();
-        $this->logger = new Tests\Functional\Fixtures\DummyLogger();
+        $this->logger = new TransientLogger\TransientLogger();
         $this->subject = new Src\Middleware\RobotsTxtSitemapHandler(
             new Src\Resource\RobotsTxtEnhancer(
                 new Typo3SitemapLocator\Sitemap\SitemapLocator(
@@ -217,17 +217,16 @@ TXT,
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
         self::assertEquals(
             [
-                Log\LogLevel::WARNING => [
+                new TransientLogger\Log\LogRecord(
+                    TransientLogger\Log\LogLevel::Warning,
+                    'Unable to inject XML sitemaps into robots.txt at {url}.',
                     [
-                        'message' => 'Unable to inject XML sitemaps into robots.txt at {url}.',
-                        'context' => [
-                            'url' => 'https://typo3-testing.local/robots.txt',
-                            'exception' => new Typo3SitemapLocator\Exception\BaseUrlIsNotSupported('/'),
-                        ],
+                        'url' => 'https://typo3-testing.local/robots.txt',
+                        'exception' => new Typo3SitemapLocator\Exception\BaseUrlIsNotSupported('/'),
                     ],
-                ],
+                ),
             ],
-            $this->logger->log,
+            $this->logger->getAll(),
         );
     }
 
