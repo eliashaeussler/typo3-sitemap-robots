@@ -41,10 +41,15 @@ trait SiteTrait
     ): Core\Site\Entity\Site {
         $configPath = $this->instancePath . '/typo3conf/sites';
 
-        $siteConfiguration = new Core\Configuration\SiteConfiguration(
-            $configPath,
-            new Core\EventDispatcher\NoopEventDispatcher(),
-        );
+        // @todo Remove once support for TYPO3 v11 is dropped
+        if ((new Core\Information\Typo3Version())->getMajorVersion() < 12) {
+            $siteConfiguration = new Core\Configuration\SiteConfiguration($configPath);
+        } else {
+            $siteConfiguration = new Core\Configuration\SiteConfiguration(
+                $configPath,
+                new Core\EventDispatcher\NoopEventDispatcher(),
+            );
+        }
 
         $siteConfiguration->createNewBasicSite(static::$testSiteIdentifier, 1, $baseUrl);
 
