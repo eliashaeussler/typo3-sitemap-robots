@@ -82,7 +82,8 @@ final class ReducedSitemapProviderPass implements DependencyInjection\Compiler\C
             }
 
             if (!in_array($providerClass, self::PROVIDERS_TO_EXCLUDE, true)) {
-                $priority = $providerClass::getPriority();
+                // Include leading underscore because of issues within ArrayUtility::flatten()
+                $priority = '_' . $providerClass::getPriority();
                 $providers[$priority] ??= [];
                 $providers[$priority][] = new DependencyInjection\Reference($providerServiceId);
             }
