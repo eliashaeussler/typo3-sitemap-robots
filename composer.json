@@ -20,7 +20,7 @@
 		"psr/http-server-middleware": "^1.0",
 		"psr/log": "^1.0 || ^2.0 || ^3.0",
 		"symfony/dependency-injection": "^5.4 || ^6.0",
-		"typo3/cms-core": "~11.5.19 || ~12.4.0"
+		"typo3/cms-core": "~11.5.19 || ~12.4.0 || ~13.0.0"
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^1.7 || ^2.0",
