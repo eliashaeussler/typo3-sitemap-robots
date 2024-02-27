@@ -8726,16 +8726,16 @@
         },
         {
             "name": "ssch/typo3-rector",
-            "version": "v2.0.3",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabbelasichon/typo3-rector.git",
-                "reference": "37f9230b18ea7abd3f28a1206f8436131e617486"
+                "reference": "bb3f8a1d567cd033a0ce4862b4d7eb51b2a4801d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/37f9230b18ea7abd3f28a1206f8436131e617486",
-                "reference": "37f9230b18ea7abd3f28a1206f8436131e617486",
+                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/bb3f8a1d567cd033a0ce4862b4d7eb51b2a4801d",
+                "reference": "bb3f8a1d567cd033a0ce4862b4d7eb51b2a4801d",
                 "shasum": ""
             },
             "require": {
@@ -8750,7 +8750,8 @@
                 "symfony/polyfill-php80": "^1.28.0",
                 "symfony/polyfill-php81": "^1.28.0",
                 "symfony/string": "^5.4 || ^6.4 || ^7.0",
-                "symfony/yaml": "^5.4 || ^6.4 || ^7.0"
+                "symfony/yaml": "^5.4 || ^6.4 || ^7.0",
+                "webmozart/assert": "^1.11.0"
             },
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.28",
@@ -8762,8 +8763,7 @@
                 "symfony/config": "^5.0 || ^6.0 || ^7.0",
                 "symfony/dependency-injection": "^5.4.34 || ^6.4.2 || ^7.0.2",
                 "symfony/http-kernel": "^5.4.34 || ^6.4.2 || ^7.0.2",
-                "symplify/easy-coding-standard": "^12.1.8",
-                "webmozart/assert": "^1.11.0"
+                "symplify/easy-coding-standard": "^12.1.8"
             },
             "suggest": {
                 "ssch/typo3-debug-dump-pass": "^0.0.1"
@@ -8828,7 +8828,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-15T22:23:27+00:00"
+            "time": "2024-02-26T13:04:24+00:00"
         },
         {
             "name": "symfony/polyfill-php81",
