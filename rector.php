@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 
 use EliasHaeussler\RectorConfig\Config\Config;
+use EliasHaeussler\RectorConfig\Entity\Version;
 use Rector\Arguments\Rector\ClassMethod\ArgumentAdderRector;
 use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
@@ -39,7 +40,7 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/.github/*',
             __DIR__ . '/var/*',
         )
-        ->withPHPUnit()
+        ->withPHPUnit(Version::createMajor(9))
         ->withSymfony()
         ->withTYPO3()
         ->skip(AnnotationToAttributeRector::class, [
