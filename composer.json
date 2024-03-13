@@ -19,8 +19,8 @@
 		"psr/http-server-handler": "^1.0",
 		"psr/http-server-middleware": "^1.0",
 		"psr/log": "^1.0 || ^2.0 || ^3.0",
-		"symfony/dependency-injection": "^5.4 || ^6.0",
-		"typo3/cms-core": "~11.5.19 || ~12.4.0"
+		"symfony/dependency-injection": "^5.4 || ^6.0 || ^7.0",
+		"typo3/cms-core": "~11.5.19 || ~12.4.0 || ~13.0.0"
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^1.7 || ^2.0",
@@ -34,9 +34,9 @@
 		"phpunit/phpcov": "^8.2 || ^9.0 || ^10.0",
 		"saschaegerer/phpstan-typo3": "^1.9",
 		"ssch/typo3-rector": "^2.0",
-		"typo3/cms-seo": "~11.5.19 || ~12.4.0",
-		"typo3/coding-standards": "^0.7.1",
-		"typo3/testing-framework": "^7.0.2 || ^8.0.1"
+		"typo3/cms-seo": "~11.5.19 || ~12.4.0 || ~13.0.0",
+		"typo3/coding-standards": "^0.8.0@dev",
+		"typo3/testing-framework": "^7.0.2 || ^8.0.9"
 	},
 	"autoload": {
 		"psr-4": {

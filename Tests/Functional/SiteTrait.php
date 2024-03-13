@@ -40,15 +40,23 @@ trait SiteTrait
         string $baseUrl = 'https://typo3-testing.local/',
     ): Core\Site\Entity\Site {
         $configPath = $this->instancePath . '/typo3conf/sites';
+        $typo3Version = new Core\Information\Typo3Version();
 
-        // @todo Remove once support for TYPO3 v11 is dropped
-        if ((new Core\Information\Typo3Version())->getMajorVersion() < 12) {
-            $siteConfiguration = new Core\Configuration\SiteConfiguration($configPath);
-        } else {
+        if ($typo3Version->getMajorVersion() >= 13) {
+            $siteConfiguration = new Core\Configuration\SiteConfiguration(
+                $configPath,
+                new Core\EventDispatcher\NoopEventDispatcher(),
+                new Core\Cache\Frontend\NullFrontend('core'),
+            );
+        } elseif (($typo3Version)->getMajorVersion() >= 12) {
+            // @todo Remove once support for TYPO3 v12 is dropped
             $siteConfiguration = new Core\Configuration\SiteConfiguration(
                 $configPath,
                 new Core\EventDispatcher\NoopEventDispatcher(),
             );
+        } else {
+            // @todo Remove once support for TYPO3 v11 is dropped
+            $siteConfiguration = new Core\Configuration\SiteConfiguration($configPath);
         }
 
         $siteConfiguration->createNewBasicSite(static::$testSiteIdentifier, 1, $baseUrl);
