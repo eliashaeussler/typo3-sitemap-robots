@@ -24,7 +24,8 @@
 	},
 	"require-dev": {
 		"eliashaeussler/transient-logger": "^1.0",
-		"phpunit/phpcov": "^8.2 || ^9.0 || ^10.0",
+		"phpunit/phpcov": "^9.0 || ^10.0",
+		"phpunit/phpunit": "^10.1 || ^11.0",
 		"typo3/cms-seo": "~11.5.19 || ~12.4.0 || ~13.1.0",
 		"typo3/testing-framework": "^7.0.2 || ^8.0.9"
 	},
