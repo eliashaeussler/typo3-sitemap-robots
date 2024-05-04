@@ -28,7 +28,7 @@ Features
 -   :ref:`Configuration <configuration>` option to manage sitemap injection on a
     per-site basis
 -   Supports :ref:`static routes <static-route>` and :ref:`local files <local-file>`
--   Compatible with TYPO3 11.5 LTS, 12.4 LTS and 13.0 (see :ref:`version matrix <version-matrix>`)
+-   Compatible with TYPO3 11.5 LTS, 12.4 LTS and 13.1 (see :ref:`version matrix <version-matrix>`)
 
 ..  _support:
 
