@@ -3,19 +3,19 @@ parameters:
 		-
 			message: "#^EliasHaeussler\\\\Typo3SitemapRobots\\\\Tests\\\\Functional\\\\Fixtures\\\\DummyRequestFactory\\:\\:__construct\\(\\) does not call parent constructor from TYPO3\\\\CMS\\\\Core\\\\Http\\\\RequestFactory\\.$#"
 			count: 1
-			path: Tests/Functional/Fixtures/DummyRequestFactory.php
+			path: ../Functional/Fixtures/DummyRequestFactory.php
 
 		-
 			message: "#^Parameter \\#3 \\$options \\(array\\<string, mixed\\>\\) of method EliasHaeussler\\\\Typo3SitemapRobots\\\\Tests\\\\Functional\\\\Fixtures\\\\DummyRequestFactory\\:\\:request\\(\\) should be contravariant with parameter \\$options \\(array\\) of method TYPO3\\\\CMS\\\\Core\\\\Http\\\\RequestFactory\\:\\:request\\(\\)$#"
 			count: 1
-			path: Tests/Functional/Fixtures/DummyRequestFactory.php
+			path: ../Functional/Fixtures/DummyRequestFactory.php
 
 		-
 			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor invoked with 1 parameter, 2\\-3 required\\.$#"
 			count: 1
-			path: Tests/Functional/Middleware/RobotsTxtSitemapHandlerTest.php
+			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
 
 		-
 			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor invoked with 1 parameter, 2\\-3 required\\.$#"
 			count: 1
-			path: Tests/Functional/Resource/RobotsTxtEnhancerTest.php
+			path: ../Functional/Resource/RobotsTxtEnhancerTest.php

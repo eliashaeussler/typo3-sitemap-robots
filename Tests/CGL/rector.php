@@ -29,25 +29,30 @@ use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\ValueObject\PhpVersion;
 
 return static function(RectorConfig $rectorConfig): void {
+    $rootPath = dirname(__DIR__, 2);
+
+    require $rootPath . '/.Build/vendor/autoload.php';
+
     Config::create($rectorConfig, PhpVersion::PHP_81)
         ->in(
-            __DIR__ . '/Classes',
-            __DIR__ . '/Configuration',
-            __DIR__ . '/Tests',
+            $rootPath . '/Classes',
+            $rootPath . '/Configuration',
+            $rootPath . '/Tests',
         )
         ->not(
-            __DIR__ . '/.Build/*',
-            __DIR__ . '/.github/*',
-            __DIR__ . '/var/*',
+            $rootPath . '/.Build/*',
+            $rootPath . '/.github/*',
+            $rootPath . '/Tests/CGL/vendor/*',
+            $rootPath . '/var/*',
         )
         ->withPHPUnit(Version::createMajor(9))
         ->withSymfony()
         ->withTYPO3()
         ->skip(AnnotationToAttributeRector::class, [
-            __DIR__ . '/Classes/Extension.php',
+            $rootPath . '/Classes/Extension.php',
         ])
         ->skip(ArgumentAdderRector::class, [
-            __DIR__ . '/Configuration/Services.php',
+            $rootPath . '/Configuration/Services.php',
         ])
         ->apply()
     ;

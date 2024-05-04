@@ -21,35 +21,23 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-return [
-    'directories' => [
-        '.build',
-        '.ddev',
-        '.git',
-        '.github',
-        'bin',
-        'build',
-        'public',
-        'tailor-version-upload',
-        'tests',
-        'var',
-        'vendor',
-    ],
-    'files' => [
-        'DS_Store',
-        'CODE_OF_CONDUCT.md',
-        'codecov.yml',
-        'CODEOWNERS',
-        'composer.lock',
-        'CONTRIBUTING.md',
-        'crowdin.yaml',
-        'docker-compose.yml',
-        'editorconfig',
-        'gitattributes',
-        'gitignore',
-        'packaging_exclude.php',
-        'phpunit.functional.xml',
-        'phpunit.unit.xml',
-        'renovate.json',
-    ],
-];
+use EliasHaeussler\PHPStanConfig;
+
+$rootPath = dirname(__DIR__, 2);
+
+return PHPStanConfig\Config\Config::create($rootPath)
+    ->in(
+        'Classes',
+        'Configuration',
+        'Tests',
+    )
+    ->not(
+        'Tests/CGL'
+    )
+    ->bootstrapFiles(
+        $rootPath . '/.Build/vendor/autoload.php',
+    )
+    ->withBaseline()
+    ->maxLevel()
+    ->toArray()
+;

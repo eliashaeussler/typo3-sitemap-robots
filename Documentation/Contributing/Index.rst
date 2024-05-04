@@ -77,26 +77,26 @@ Check code quality
 ..  code-block:: bash
 
     # All linters
-    ddev composer lint
+    ddev cgl lint
 
     # Specific linters
-    ddev composer lint:composer
-    ddev composer lint:editorconfig
-    ddev composer lint:php
+    ddev cgl lint:composer
+    ddev cgl lint:editorconfig
+    ddev cgl lint:php
 
     # Fix all CGL issues
-    ddev composer fix
+    ddev cgl fix
 
     # Fix specific CGL issues
-    ddev composer fix:composer
-    ddev composer fix:editorconfig
-    ddev composer fix:php
+    ddev cgl fix:composer
+    ddev cgl fix:editorconfig
+    ddev cgl fix:php
 
     # All static code analyzers
-    ddev composer sca
+    ddev cgl sca
 
     # Specific static code analyzers
-    ddev composer sca:php
+    ddev cgl sca:php
 
 ..  _run-tests:
 
@@ -114,10 +114,21 @@ Run tests
 ..  code-block:: bash
 
     # All tests
-    ddev composer test
+    ddev test
+
+    # Specific tests
+    ddev test functional
+    ddev test unit
 
     # All tests with code coverage
-    ddev composer test:coverage
+    ddev test coverage
+
+    # Specific tests with code coverage
+    ddev test coverage:functional
+    ddev test coverage:unit
+
+    # Merge code coverage of all test suites
+    ddev test coverage:merge
 
 Code coverage reports are written to :file:`.Build/coverage`. You can
 open the last HTML report like follows:

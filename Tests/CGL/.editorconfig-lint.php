@@ -21,25 +21,8 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\PhpCsFixerConfig;
-use TYPO3\CodingStandards;
-
-$header = PhpCsFixerConfig\Rules\Header::create(
-    'sitemap_robots',
-    PhpCsFixerConfig\Package\Type::TYPO3Extension,
-    PhpCsFixerConfig\Package\Author::create('Elias Häußler', 'elias@haeussler.dev'),
-    PhpCsFixerConfig\Package\CopyrightRange::from(2023),
-    PhpCsFixerConfig\Package\License::GPL2OrLater,
-);
-
-$config = CodingStandards\CsFixerConfig::create();
-$finder = $config->getFinder()
-    ->in(__DIR__)
+return \Symfony\Component\Finder\Finder::create()
+    ->files()
+    ->in(dirname(__DIR__, 2))
     ->ignoreVCSIgnored(true)
-    ->ignoreDotFiles(false)
-;
-
-return PhpCsFixerConfig\Config::create()
-    ->withConfig($config)
-    ->withRule($header)
 ;
