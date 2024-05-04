@@ -43,23 +43,32 @@ trait SiteTrait
         $typo3Version = new Core\Information\Typo3Version();
 
         if ($typo3Version->getMajorVersion() >= 13) {
+            $coreCache = new Core\Cache\Frontend\NullFrontend('core');
+            $eventDispatcher = new Core\EventDispatcher\NoopEventDispatcher();
+
             $siteConfiguration = new Core\Configuration\SiteConfiguration(
                 $configPath,
-                new Core\EventDispatcher\NoopEventDispatcher(),
-                new Core\Cache\Frontend\NullFrontend('core'),
+                $this->get(Core\Site\SiteSettingsFactory::class),
+                $eventDispatcher,
+                $coreCache,
+            );
+            $siteWriter = new Core\Configuration\SiteWriter(
+                $configPath,
+                $eventDispatcher,
+                $coreCache,
             );
         } elseif (($typo3Version)->getMajorVersion() >= 12) {
             // @todo Remove once support for TYPO3 v12 is dropped
-            $siteConfiguration = new Core\Configuration\SiteConfiguration(
+            $siteConfiguration = $siteWriter = new Core\Configuration\SiteConfiguration(
                 $configPath,
                 new Core\EventDispatcher\NoopEventDispatcher(),
             );
         } else {
             // @todo Remove once support for TYPO3 v11 is dropped
-            $siteConfiguration = new Core\Configuration\SiteConfiguration($configPath);
+            $siteConfiguration = $siteWriter = new Core\Configuration\SiteConfiguration($configPath);
         }
 
-        $siteConfiguration->createNewBasicSite(static::$testSiteIdentifier, 1, $baseUrl);
+        $siteWriter->createNewBasicSite(static::$testSiteIdentifier, 1, $baseUrl);
 
         $rawConfig = $siteConfiguration->load(static::$testSiteIdentifier);
         $rawConfig['sitemap_robots_inject'] = $injectSitemaps;
@@ -88,7 +97,7 @@ trait SiteTrait
             'languageId' => 2,
         ];
 
-        $siteConfiguration->write(static::$testSiteIdentifier, $rawConfig);
+        $siteWriter->write(static::$testSiteIdentifier, $rawConfig);
 
         $site = $siteConfiguration->getAllExistingSites()[static::$testSiteIdentifier] ?? null;
 
