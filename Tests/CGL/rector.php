@@ -28,7 +28,7 @@ use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\ValueObject\PhpVersion;
 
-return static function(RectorConfig $rectorConfig): void {
+return static function (RectorConfig $rectorConfig): void {
     $rootPath = dirname(__DIR__, 2);
 
     require $rootPath . '/.Build/vendor/autoload.php';

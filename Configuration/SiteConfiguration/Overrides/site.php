@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-(static function() {
+(static function () {
     if ((new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion() >= 12) {
         $labelKey = 'label';
     } else {

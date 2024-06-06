@@ -25,7 +25,6 @@ namespace EliasHaeussler\Typo3SitemapRobots\Resource;
 
 use EliasHaeussler\Typo3SitemapRobots\Exception;
 use Psr\Http\Message;
-use RuntimeException;
 use TYPO3\CMS\Core;
 
 /**
@@ -51,7 +50,7 @@ final class RobotsTxtFactory
 
         try {
             $body = $this->streamFactory->createStreamFromFile($file, 'a+');
-        } catch (RuntimeException) {
+        } catch (\RuntimeException) {
             throw new Exception\FileDoesNotExist($file);
         }
 

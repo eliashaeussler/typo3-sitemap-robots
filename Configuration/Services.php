@@ -25,7 +25,7 @@ namespace EliasHaeussler\Typo3SitemapRobots\DependencyInjection;
 
 use Symfony\Component\DependencyInjection;
 
-return static function(DependencyInjection\ContainerBuilder $container): void {
+return static function (DependencyInjection\ContainerBuilder $container): void {
     // @todo Remove once support for TYPO3 v11 is dropped
     $container->addCompilerPass(new ReducedSitemapProviderPass());
 };
