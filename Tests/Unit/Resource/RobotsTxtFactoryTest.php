@@ -26,7 +26,6 @@ namespace EliasHaeussler\Typo3SitemapRobots\Tests\Unit\Resource;
 use EliasHaeussler\Typo3SitemapRobots as Src;
 use PHPUnit\Framework;
 use Psr\Http\Message;
-use RuntimeException;
 use TYPO3\CMS\Core;
 use TYPO3\TestingFramework;
 
@@ -70,7 +69,7 @@ final class RobotsTxtFactoryTest extends TestingFramework\Core\Unit\UnitTestCase
         $file = __FILE__;
 
         $this->streamFactory->method('createStreamFromFile')->willThrowException(
-            new RuntimeException('The file ' . $file . ' cannot be opened.'),
+            new \RuntimeException('The file ' . $file . ' cannot be opened.'),
         );
 
         $this->expectExceptionObject(
