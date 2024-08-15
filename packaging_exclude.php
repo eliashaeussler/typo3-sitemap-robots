@@ -38,7 +38,6 @@ return [
     'files' => [
         'DS_Store',
         'CODE_OF_CONDUCT.md',
-        'codecov.yml',
         'CODEOWNERS',
         'composer.lock',
         'CONTRIBUTING.md',
