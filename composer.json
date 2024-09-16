@@ -20,13 +20,13 @@
 		"psr/http-server-middleware": "^1.0",
 		"psr/log": "^1.0 || ^2.0 || ^3.0",
 		"symfony/dependency-injection": "^5.4 || ^6.0 || ^7.0",
-		"typo3/cms-core": "~11.5.19 || ~12.4.0 || ~13.2.0"
+		"typo3/cms-core": "~11.5.19 || ~12.4.0 || ~13.3.0"
 	},
 	"require-dev": {
 		"eliashaeussler/transient-logger": "^1.0",
 		"phpunit/phpcov": "^9.0 || ^10.0",
 		"phpunit/phpunit": "^10.1 || ^11.0",
-		"typo3/cms-seo": "~11.5.19 || ~12.4.0 || ~13.2.0",
+		"typo3/cms-seo": "~11.5.19 || ~12.4.0 || ~13.3.0",
 		"typo3/testing-framework": "^7.0.2 || ^8.0.9"
 	},
 	"autoload": {
@@ -57,9 +57,6 @@
 	"scripts": {
 		"post-install-cmd": [
 			"@composer -d Tests/CGL install"
-		],
-		"post-update-cmd": [
-			"@composer -d Tests/CGL update"
 		],
 		"cgl": "@composer -d Tests/CGL --",
 		"docs": [
