@@ -23,7 +23,7 @@ static routes as well as injection into local files.
 * Middleware to inject sitemap configurations into `robots.txt`
 * Manage sitemap injection on a per-site basis using site configuration
 * Supports static routes and local files
-* Compatible with TYPO3 11.5 LTS, 12.4 LTS and 13.2
+* Compatible with TYPO3 11.5 LTS, 12.4 LTS and 13.3
 
 ## 🔥 Installation
 
