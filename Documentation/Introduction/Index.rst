@@ -40,6 +40,14 @@ There are several ways to get support for this extension:
 * Slack: https://typo3.slack.com/archives/C060KATSL5V
 * GitHub: https://github.com/eliashaeussler/typo3-sitemap-robots/issues
 
+..  _security-policy:
+
+Security Policy
+===============
+
+Please read our `security policy <https://github.com/eliashaeussler/typo3-sitemap-robots/blob/main/SECURITY.md>`__
+if you discover a security vulnerability in this extension.
+
 ..  _license:
 
 License
