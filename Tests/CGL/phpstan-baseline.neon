@@ -26,7 +26,12 @@ parameters:
 			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
 
 		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor invoked with 5 parameters, 2\\-3 required\\.$#"
+			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor invoked with 7 parameters, 2\\-3 required\\.$#"
+			count: 1
+			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
+
+		-
+			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Site\\\\Set\\\\SetRegistry not found\\.$#"
 			count: 1
 			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
 
@@ -46,7 +51,7 @@ parameters:
 			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$coreCache of class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor expects TYPO3\\\\CMS\\\\Core\\\\Cache\\\\Frontend\\\\PhpFrontend\\|null, TYPO3\\\\CMS\\\\Core\\\\EventDispatcher\\\\NoopEventDispatcher given\\.$#"
+			message: "#^Parameter \\#3 \\$coreCache of class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor expects TYPO3\\\\CMS\\\\Core\\\\Cache\\\\Frontend\\\\PhpFrontend\\|null, TYPO3\\\\CMS\\\\Core\\\\Site\\\\Set\\\\SetRegistry given\\.$#"
 			count: 1
 			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
 
@@ -66,7 +71,12 @@ parameters:
 			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
 
 		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor invoked with 5 parameters, 2\\-3 required\\.$#"
+			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor invoked with 7 parameters, 2\\-3 required\\.$#"
+			count: 1
+			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
+
+		-
+			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Site\\\\Set\\\\SetRegistry not found\\.$#"
 			count: 1
 			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
 
@@ -86,6 +96,6 @@ parameters:
 			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$coreCache of class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor expects TYPO3\\\\CMS\\\\Core\\\\Cache\\\\Frontend\\\\PhpFrontend\\|null, TYPO3\\\\CMS\\\\Core\\\\EventDispatcher\\\\NoopEventDispatcher given\\.$#"
+			message: "#^Parameter \\#3 \\$coreCache of class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor expects TYPO3\\\\CMS\\\\Core\\\\Cache\\\\Frontend\\\\PhpFrontend\\|null, TYPO3\\\\CMS\\\\Core\\\\Site\\\\Set\\\\SetRegistry given\\.$#"
 			count: 1
 			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
