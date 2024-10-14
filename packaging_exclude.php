@@ -50,5 +50,6 @@ return [
         'phpunit.functional.xml',
         'phpunit.unit.xml',
         'renovate.json',
+        'version-bumper.yaml',
     ],
 ];

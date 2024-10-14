@@ -24,6 +24,7 @@
 	},
 	"require-dev": {
 		"eliashaeussler/transient-logger": "^1.0",
+		"eliashaeussler/version-bumper": "^1.2",
 		"phpunit/phpcov": "^9.0 || ^10.0",
 		"phpunit/phpunit": "^10.1 || ^11.0",
 		"typo3/cms-seo": "~11.5.19 || ~12.4.0 || ~13.3.0",
@@ -41,6 +42,7 @@
 	},
 	"config": {
 		"allow-plugins": {
+			"eliashaeussler/version-bumper": true,
 			"typo3/class-alias-loader": true,
 			"typo3/cms-composer-installers": true
 		},

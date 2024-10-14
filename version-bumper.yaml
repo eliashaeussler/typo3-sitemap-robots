@@ -1,0 +1,13 @@
+filesToModify:
+  - path: Documentation/Settings.cfg
+    patterns:
+      - 'release = {%version%}'
+    reportUnmatched: true
+  - path: ext_emconf.php
+    patterns:
+      - "'version' => '{%version%}'"
+    reportUnmatched: true
+
+releaseOptions:
+  commitMessage: '[RELEASE] Release of EXT:sitemap_robots {%version%}'
+  signTag: true
