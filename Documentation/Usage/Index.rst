@@ -67,7 +67,7 @@ file is requested and XML sitemaps get injected.
 
         If any located XML sitemap does not exist or is inaccessible, it is not injected
         into the response body of your :file:`robots.txt`. The validation of XML sitemaps
-        happens in :php:meth:`EliasHaeussler\\Typo3SitemapLocator\\Sitemap\\SitemapLocator::isValidSitemap`.
+        happens in :php:`\EliasHaeussler\Typo3SitemapLocator\Sitemap\SitemapLocator::isValidSitemap`.
 
 ..  seealso::
 

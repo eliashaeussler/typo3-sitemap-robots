@@ -20,7 +20,6 @@ injection of located XML sitemaps. The appropriate setting is provided
 by the following configuration:
 
 ..  confval:: sitemap_robots_inject (site)
-
     :Path: sitemap_robots_inject
     :type: bool
 
