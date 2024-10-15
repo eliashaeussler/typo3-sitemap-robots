@@ -1,5 +1,17 @@
 ..  include:: /Includes.rst.txt
 
+..  image:: https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-sitemap-robots?logo=coveralls
+    :target: https://coveralls.io/github/eliashaeussler/typo3-sitemap-robots
+
+..  image:: https://img.shields.io/codeclimate/maintainability/eliashaeussler/typo3-sitemap-robots?logo=codeclimate
+    :target: https://codeclimate.com/github/eliashaeussler/typo3-sitemap-robots/maintainability
+
+..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/cgl.yaml?label=cgl&logo=github
+    :target: https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/cgl.yaml
+
+..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/tests.yaml?label=tests&logo=github
+    :target: https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/tests.yaml
+
 ..  _contributing:
 
 ============
@@ -69,11 +81,6 @@ You can access the DDEV site at https://typo3-ext-sitemap-robots.ddev.site/.
 Check code quality
 ------------------
 
-..  rst-class:: d-inline-block mb-3
-
-..  image:: https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/cgl.yaml/badge.svg
-    :target: https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/cgl.yaml
-
 ..  code-block:: bash
 
     # All linters
@@ -102,14 +109,6 @@ Check code quality
 
 Run tests
 ---------
-
-..  image:: https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/tests.yaml/badge.svg
-    :target: https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/tests.yaml
-
-..  rst-class:: d-inline-block mb-3
-
-..  image:: https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-sitemap-robots?logo=coveralls
-    :target: https://coveralls.io/github/eliashaeussler/typo3-sitemap-robots
 
 ..  code-block:: bash
 

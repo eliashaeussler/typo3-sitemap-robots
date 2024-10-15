@@ -108,4 +108,3 @@ local files.
     :hidden:
 
     Sitemap
-    genindex

@@ -37,7 +37,7 @@ Support
 
 There are several ways to get support for this extension:
 
-* Slack: https://typo3.slack.com/archives/C060KATSL5V
+* Slack: https://typo3.slack.com/archives/C06532567LM
 * GitHub: https://github.com/eliashaeussler/typo3-sitemap-robots/issues
 
 ..  _security-policy:
