@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1cf1a287c94e1d35c0743ac46ead7a9",
+    "content-hash": "3d68401528a74518cea99f894f6f199d",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -735,16 +735,16 @@
         },
         {
             "name": "eliashaeussler/typo3-sitemap-locator",
-            "version": "dev-feature/typo3-13.4",
+            "version": "0.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eliashaeussler/typo3-sitemap-locator.git",
-                "reference": "59b0ee7289547f5a1b2bd5eeab511a4c49a28a11"
+                "reference": "3dcf0bba7a41352d084b09693be3f7fa9f2ea1bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eliashaeussler/typo3-sitemap-locator/zipball/59b0ee7289547f5a1b2bd5eeab511a4c49a28a11",
-                "reference": "59b0ee7289547f5a1b2bd5eeab511a4c49a28a11",
+                "url": "https://api.github.com/repos/eliashaeussler/typo3-sitemap-locator/zipball/3dcf0bba7a41352d084b09693be3f7fa9f2ea1bc",
+                "reference": "3dcf0bba7a41352d084b09693be3f7fa9f2ea1bc",
                 "shasum": ""
             },
             "require": {
@@ -759,8 +759,9 @@
             },
             "require-dev": {
                 "eliashaeussler/phpunit-attributes": "^1.2",
+                "eliashaeussler/version-bumper": "^1.2",
                 "phpunit/phpcov": "^9.0 || ^10.0",
-                "phpunit/phpunit": "^10.1 || ^11.0",
+                "phpunit/phpunit": "^10.1 || ^11.2",
                 "symfony/event-dispatcher": "^5.4 || ^6.0 || ^7.0",
                 "typo3/cms-install": "~11.5.4 || ~12.4.0 || ~13.4.0",
                 "typo3/cms-seo": "~11.5.4 || ~12.4.0 || ~13.4.0",
@@ -793,9 +794,9 @@
             "description": "Extension for TYPO3 CMS to locate XML sitemaps as part of a configured site",
             "support": {
                 "issues": "https://github.com/eliashaeussler/typo3-sitemap-locator/issues",
-                "source": "https://github.com/eliashaeussler/typo3-sitemap-locator/tree/feature/typo3-13.4"
+                "source": "https://github.com/eliashaeussler/typo3-sitemap-locator/tree/0.1.7"
             },
-            "time": "2024-10-14T11:33:05+00:00"
+            "time": "2024-10-15T08:14:06+00:00"
         },
         {
             "name": "enshrined/svg-sanitize",
@@ -7889,11 +7890,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "eliashaeussler/typo3-sitemap-locator": 20
-    },
-    "prefer-stable": true,
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "~8.1.0 || ~8.2.0 || ~8.3.0"

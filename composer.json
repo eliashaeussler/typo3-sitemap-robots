@@ -13,7 +13,7 @@
 	],
 	"require": {
 		"php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-		"eliashaeussler/typo3-sitemap-locator": "dev-feature/typo3-13.4",
+		"eliashaeussler/typo3-sitemap-locator": "^0.1.0",
 		"psr/http-factory": "^1.0",
 		"psr/http-message": "^1.0 || ^2.0",
 		"psr/http-server-handler": "^1.0",
@@ -30,8 +30,6 @@
 		"typo3/cms-seo": "~11.5.19 || ~12.4.0 || ~13.4.0",
 		"typo3/testing-framework": "^7.0.2 || ^8.2.3"
 	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
 			"EliasHaeussler\\Typo3SitemapRobots\\": "Classes/"
