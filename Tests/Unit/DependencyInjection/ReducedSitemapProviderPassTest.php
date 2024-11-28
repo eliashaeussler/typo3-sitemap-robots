@@ -165,7 +165,7 @@ final class ReducedSitemapProviderPassTest extends TestingFramework\Core\Unit\Un
         }
     }
 
-    private function addProvider(string $providerClass, string $id = null): DependencyInjection\Definition
+    private function addProvider(string $providerClass, ?string $id = null): DependencyInjection\Definition
     {
         $definition = new DependencyInjection\Definition($providerClass);
         $definition->addTag('sitemap_locator.sitemap_provider');
