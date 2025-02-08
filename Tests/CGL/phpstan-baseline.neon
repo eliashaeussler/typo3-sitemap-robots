@@ -1,101 +1,103 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^EliasHaeussler\\\\Typo3SitemapRobots\\\\Tests\\\\Functional\\\\Fixtures\\\\DummyRequestFactory\\:\\:__construct\\(\\) does not call parent constructor from TYPO3\\\\CMS\\\\Core\\\\Http\\\\RequestFactory\\.$#"
+			message: '#^Binary operation "\.\=" between mixed and '', \-\-linebreak\-\-,…'' results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: ../../Configuration/SiteConfiguration/Overrides/site.php
+
+		-
+			message: '#^Cannot access offset ''columns'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../Configuration/SiteConfiguration/Overrides/site.php
+
+		-
+			message: '#^Cannot access offset ''palettes'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../Configuration/SiteConfiguration/Overrides/site.php
+
+		-
+			message: '#^Cannot access offset ''showitem'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../Configuration/SiteConfiguration/Overrides/site.php
+
+		-
+			message: '#^Cannot access offset ''site'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: ../../Configuration/SiteConfiguration/Overrides/site.php
+
+		-
+			message: '#^Cannot access offset ''sitemap_robots_inject'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../Configuration/SiteConfiguration/Overrides/site.php
+
+		-
+			message: '#^Cannot access offset ''xml_sitemap'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../Configuration/SiteConfiguration/Overrides/site.php
+
+		-
+			message: '#^EliasHaeussler\\Typo3SitemapRobots\\Tests\\Functional\\Fixtures\\DummyRequestFactory\:\:__construct\(\) does not call parent constructor from TYPO3\\CMS\\Core\\Http\\RequestFactory\.$#'
+			identifier: constructor.missingParentCall
 			count: 1
 			path: ../Functional/Fixtures/DummyRequestFactory.php
 
 		-
-			message: "#^Parameter \\#3 \\$options \\(array\\<string, mixed\\>\\) of method EliasHaeussler\\\\Typo3SitemapRobots\\\\Tests\\\\Functional\\\\Fixtures\\\\DummyRequestFactory\\:\\:request\\(\\) should be contravariant with parameter \\$options \\(array\\) of method TYPO3\\\\CMS\\\\Core\\\\Http\\\\RequestFactory\\:\\:request\\(\\)$#"
+			message: '#^Parameter \#3 \$options \(array\<string, mixed\>\) of method EliasHaeussler\\Typo3SitemapRobots\\Tests\\Functional\\Fixtures\\DummyRequestFactory\:\:request\(\) should be contravariant with parameter \$options \(array\) of method TYPO3\\CMS\\Core\\Http\\RequestFactory\:\:request\(\)$#'
+			identifier: method.childParameterType
 			count: 1
 			path: ../Functional/Fixtures/DummyRequestFactory.php
 
 		-
-			message: "#^Call to method createNewBasicSite\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteWriter\\.$#"
+			message: '#^Class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor invoked with 1 parameter, 2\-3 required\.$#'
+			identifier: arguments.count
 			count: 1
 			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
 
 		-
-			message: "#^Call to method write\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteWriter\\.$#"
+			message: '#^Class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor invoked with 7 parameters, 2\-3 required\.$#'
+			identifier: arguments.count
 			count: 1
 			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
 
 		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor invoked with 1 parameter, 2\\-3 required\\.$#"
+			message: '#^Parameter \#2 \$eventDispatcher of class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor expects Psr\\EventDispatcher\\EventDispatcherInterface, TYPO3\\CMS\\Core\\Site\\SiteSettingsFactory given\.$#'
+			identifier: argument.type
 			count: 1
 			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
 
 		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor invoked with 7 parameters, 2\\-3 required\\.$#"
+			message: '#^Parameter \#3 \$coreCache of class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor expects TYPO3\\CMS\\Core\\Cache\\Frontend\\PhpFrontend\|null, TYPO3\\CMS\\Core\\Site\\Set\\SetRegistry given\.$#'
+			identifier: argument.type
 			count: 1
 			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
 
 		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Site\\\\Set\\\\SetRegistry not found\\.$#"
-			count: 1
-			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
-
-		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Site\\\\SiteSettingsFactory not found\\.$#"
-			count: 1
-			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
-
-		-
-			message: "#^Instantiated class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteWriter not found\\.$#"
-			count: 1
-			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$eventDispatcher of class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor expects Psr\\\\EventDispatcher\\\\EventDispatcherInterface, TYPO3\\\\CMS\\\\Core\\\\Site\\\\SiteSettingsFactory given\\.$#"
-			count: 1
-			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$coreCache of class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor expects TYPO3\\\\CMS\\\\Core\\\\Cache\\\\Frontend\\\\PhpFrontend\\|null, TYPO3\\\\CMS\\\\Core\\\\Site\\\\Set\\\\SetRegistry given\\.$#"
-			count: 1
-			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
-
-		-
-			message: "#^Call to method createNewBasicSite\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteWriter\\.$#"
+			message: '#^Class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor invoked with 1 parameter, 2\-3 required\.$#'
+			identifier: arguments.count
 			count: 1
 			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
 
 		-
-			message: "#^Call to method write\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteWriter\\.$#"
+			message: '#^Class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor invoked with 7 parameters, 2\-3 required\.$#'
+			identifier: arguments.count
 			count: 1
 			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
 
 		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor invoked with 1 parameter, 2\\-3 required\\.$#"
+			message: '#^Parameter \#2 \$eventDispatcher of class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor expects Psr\\EventDispatcher\\EventDispatcherInterface, TYPO3\\CMS\\Core\\Site\\SiteSettingsFactory given\.$#'
+			identifier: argument.type
 			count: 1
 			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
 
 		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor invoked with 7 parameters, 2\\-3 required\\.$#"
-			count: 1
-			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
-
-		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Site\\\\Set\\\\SetRegistry not found\\.$#"
-			count: 1
-			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
-
-		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Site\\\\SiteSettingsFactory not found\\.$#"
-			count: 1
-			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
-
-		-
-			message: "#^Instantiated class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteWriter not found\\.$#"
-			count: 1
-			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$eventDispatcher of class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor expects Psr\\\\EventDispatcher\\\\EventDispatcherInterface, TYPO3\\\\CMS\\\\Core\\\\Site\\\\SiteSettingsFactory given\\.$#"
-			count: 1
-			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$coreCache of class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\SiteConfiguration constructor expects TYPO3\\\\CMS\\\\Core\\\\Cache\\\\Frontend\\\\PhpFrontend\\|null, TYPO3\\\\CMS\\\\Core\\\\Site\\\\Set\\\\SetRegistry given\\.$#"
+			message: '#^Parameter \#3 \$coreCache of class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor expects TYPO3\\CMS\\Core\\Cache\\Frontend\\PhpFrontend\|null, TYPO3\\CMS\\Core\\Site\\Set\\SetRegistry given\.$#'
+			identifier: argument.type
 			count: 1
 			path: ../Functional/Resource/RobotsTxtEnhancerTest.php

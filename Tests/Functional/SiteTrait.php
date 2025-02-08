@@ -73,6 +73,7 @@ trait SiteTrait
 
         $siteWriter->createNewBasicSite(static::$testSiteIdentifier, 1, $baseUrl);
 
+        /** @var array{languages: array<int, mixed>} $rawConfig */
         $rawConfig = $siteConfiguration->load(static::$testSiteIdentifier);
         $rawConfig['sitemap_robots_inject'] = $injectSitemaps;
         $rawConfig['languages'][1] = [
