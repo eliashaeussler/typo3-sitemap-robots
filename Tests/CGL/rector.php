@@ -26,6 +26,7 @@ use EliasHaeussler\RectorConfig\Entity\Version;
 use Rector\Arguments\Rector\ClassMethod\ArgumentAdderRector;
 use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
+use Rector\Symfony\DependencyInjection\Rector\Trait_\TraitGetByTypeToInjectRector;
 use Rector\ValueObject\PhpVersion;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -53,6 +54,9 @@ return static function (RectorConfig $rectorConfig): void {
         ])
         ->skip(ArgumentAdderRector::class, [
             $rootPath . '/Configuration/Services.php',
+        ])
+        ->skip(TraitGetByTypeToInjectRector::class, [
+            $rootPath . '/Tests/Functional/SiteTrait.php',
         ])
         ->apply()
     ;

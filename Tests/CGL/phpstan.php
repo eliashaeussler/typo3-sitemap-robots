@@ -38,6 +38,7 @@ return PHPStanConfig\Config\Config::create($rootPath)
         $rootPath . '/.Build/vendor/autoload.php',
     )
     ->withBaseline()
+    ->withBleedingEdge()
     ->maxLevel()
     ->toArray()
 ;
