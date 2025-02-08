@@ -18,7 +18,7 @@
 				"Tests/CGL/composer.json"
 			],
 			"constraints": {
-				"php": "8.2.*"
+				"php": "8.3.*"
 			}
 		}
 	]
