@@ -19,7 +19,10 @@
 			],
 			"matchFileNames": [
 				"Tests/CGL/composer.*"
-			]
+			],
+			"constraints": {
+				"php": "8.3.*"
+			}
 		}
 	]
 }
