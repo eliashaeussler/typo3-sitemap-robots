@@ -48,7 +48,19 @@ final class RobotsTxtEnhancer
         Core\Site\Entity\Site $site,
         Core\Site\Entity\SiteLanguage $siteLanguage,
     ): void {
-        $sitemaps = $this->sitemapLocator->locateBySite($site, $siteLanguage);
+        if ($site->getConfiguration()['sitemap_language_robots_inject'] ?? false) {
+            //get sitemaps of all languages. sitemaps of untranslated pages are removed by `isValidSitemap`
+            $languages = array_filter($site->getAllLanguages(), function($language){
+                return $language->isEnabled();
+            });
+
+            $sitemaps = array_merge(...array_map(function($language) use ($site){
+                return $this->sitemapLocator->locateBySite($site, $language);
+            },$languages));
+        } else {
+            //get sitemap of default language
+            $sitemaps = $this->sitemapLocator->locateBySite($site, $siteLanguage);
+        }
 
         // Go to end of file stream
         $robotsTxt->seek(0, SEEK_END);
