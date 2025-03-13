@@ -16,6 +16,14 @@ Note: Only valid sitemaps will be injected. If a located XML sitemap does not ex
 			<trans-unit id="site.sitemap_robots_inject.item.unchecked" resname="site.sitemap_robots_inject.item.unchecked">
 				<source>Disabled</source>
 			</trans-unit>
+
+			<trans-unit id="site.sitemap_language_robots_inject.label" resname="site.sitemap_language_robots_inject.label">
+			    <source>Inject Language XML sitemaps into robots.txt</source>
+            </trans-unit>
+            <trans-unit id="site.sitemap_language_robots_inject.description" resname="site.sitemap_language_robots_inject.description">
+                <source>Check the button below to inject all located XML sitemaps of the configured site languagas into robots.txt.
+                    Note: Only valid sitemaps will be injected. If a located XML sitemap does not exist, it is skipped to avoid errors in robots.txt.</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>
