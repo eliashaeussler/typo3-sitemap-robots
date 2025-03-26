@@ -90,7 +90,7 @@ TXT);
 
         $this->expectException(Typo3SitemapLocator\Exception\BaseUrlIsNotSupported::class);
 
-        $this->subject->enhanceWithSitemaps($this->robotsTxt, $site, $site->getDefaultLanguage());
+        $this->subject->enhanceWithSitemaps($this->robotsTxt, $site);
     }
 
     /**
@@ -100,7 +100,7 @@ TXT);
     {
         $this->requestFactory->handler->append(new Core\Http\Response());
 
-        $this->subject->enhanceWithSitemaps($this->robotsTxt, $this->site, $this->site->getDefaultLanguage());
+        $this->subject->enhanceWithSitemaps($this->robotsTxt, $this->site);
 
         self::assertSame(
             <<<TXT

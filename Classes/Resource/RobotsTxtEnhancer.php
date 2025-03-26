@@ -46,7 +46,6 @@ final class RobotsTxtEnhancer
     public function enhanceWithSitemaps(
         Message\StreamInterface $robotsTxt,
         Core\Site\Entity\Site $site,
-        Core\Site\Entity\SiteLanguage $siteLanguage,
     ): void {
         if ($site->getConfiguration()['sitemap_language_robots_inject'] ?? false) {
             //get sitemaps of all languages. sitemaps of untranslated pages are removed by `isValidSitemap`
@@ -59,7 +58,7 @@ final class RobotsTxtEnhancer
             },$languages));
         } else {
             //get sitemap of default language
-            $sitemaps = $this->sitemapLocator->locateBySite($site, $siteLanguage);
+            $sitemaps = $this->sitemapLocator->locateBySite($site);
         }
 
         // Go to end of file stream

@@ -50,7 +50,6 @@ final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
         Server\RequestHandlerInterface $handler,
     ): Message\ResponseInterface {
         $site = $request->getAttribute('site');
-        $siteLanguage = $request->getAttribute('language');
         $path = ltrim($request->getUri()->getPath(), '/');
 
         // Early return if site is not available
@@ -66,11 +65,6 @@ final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
         // Early return if robots.txt is not requested
         if ($path !== 'robots.txt') {
             return $handler->handle($request);
-        }
-
-        // Use default site language if language was not resolved
-        if (!($siteLanguage instanceof Core\Site\Entity\SiteLanguage)) {
-            $siteLanguage = $site->getDefaultLanguage();
         }
 
         // Resolve path to local robots.txt file
@@ -89,7 +83,7 @@ final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
         }
 
         try {
-            $this->enhancer->enhanceWithSitemaps($response->getBody(), $site, $siteLanguage);
+            $this->enhancer->enhanceWithSitemaps($response->getBody(), $site);
         } catch (Typo3SitemapLocator\Exception\Exception $exception) {
             $this->logger->warning(
                 'Unable to inject XML sitemaps into robots.txt at {url}.',
