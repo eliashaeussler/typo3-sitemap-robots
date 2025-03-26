@@ -46,9 +46,8 @@ final class RobotsTxtEnhancer
     public function enhanceWithSitemaps(
         Message\StreamInterface $robotsTxt,
         Core\Site\Entity\Site $site,
-        Core\Site\Entity\SiteLanguage $siteLanguage,
     ): void {
-        $sitemaps = $this->sitemapLocator->locateBySite($site, $siteLanguage);
+        $sitemaps = $this->sitemapLocator->locateBySite($site);
 
         // Go to end of file stream
         $robotsTxt->seek(0, SEEK_END);

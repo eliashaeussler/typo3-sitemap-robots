@@ -192,7 +192,7 @@ TXT,
     /**
      * @test
      */
-    public function processInjectsLocatedSitemapsOfGivenSiteLanguage(): void
+    public function processIgnoresSiteLanguageWhenEnhancingRobotsTxt(): void
     {
         $this->requestFactory->handler->append(new Core\Http\Response());
 
@@ -200,8 +200,7 @@ TXT,
 
         $actual = $this->subject->process($request, $this->handler);
 
-        self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
-        self::assertStringContainsString(self::getExpectedContent('de'), (string)$actual->getBody());
+        self::assertStringContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
 
     /**
