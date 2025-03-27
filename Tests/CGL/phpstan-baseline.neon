@@ -55,12 +55,6 @@ parameters:
 			path: ../Functional/Fixtures/DummyRequestFactory.php
 
 		-
-			message: '#^Class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor invoked with 1 parameter, 2\-3 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
-
-		-
 			message: '#^Class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor invoked with 7 parameters, 2\-3 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -77,12 +71,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: ../Functional/Middleware/RobotsTxtSitemapHandlerTest.php
-
-		-
-			message: '#^Class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor invoked with 1 parameter, 2\-3 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../Functional/Resource/RobotsTxtEnhancerTest.php
 
 		-
 			message: '#^Class TYPO3\\CMS\\Core\\Configuration\\SiteConfiguration constructor invoked with 7 parameters, 2\-3 required\.$#'
