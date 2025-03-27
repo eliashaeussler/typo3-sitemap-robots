@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3SitemapRobots\Tests\Functional;
 
+use EliasHaeussler\Typo3SitemapRobots\Enum;
 use TYPO3\CMS\Core;
 
 /**
@@ -33,11 +34,13 @@ use TYPO3\CMS\Core;
  */
 trait SiteTrait
 {
-    private static string $testSiteIdentifier = 'test-site';
-
+    /**
+     * @param bool|''|value-of<Enum\EnhancementStrategy> $injectSitemaps
+     */
     private function createSite(
-        bool $injectSitemaps = true,
+        bool|string $injectSitemaps = 'default',
         string $baseUrl = 'https://typo3-testing.local/',
+        string $siteIdentifier = 'test-site',
     ): Core\Site\Entity\Site {
         $configPath = $this->instancePath . '/typo3conf/sites';
         $typo3Version = new Core\Information\Typo3Version();
@@ -46,15 +49,7 @@ trait SiteTrait
             $eventDispatcher = new Core\EventDispatcher\NoopEventDispatcher();
             $yamlFileLoader = $this->get(Core\Configuration\Loader\YamlFileLoader::class);
 
-            $siteConfiguration = new Core\Configuration\SiteConfiguration(
-                $configPath,
-                $this->get(Core\Site\SiteSettingsFactory::class),
-                $this->get(Core\Site\Set\SetRegistry::class),
-                $eventDispatcher,
-                new Core\Cache\Frontend\NullFrontend('core'),
-                $yamlFileLoader,
-                new Core\Cache\Frontend\NullFrontend('runtime'),
-            );
+            $siteConfiguration = $this->getSiteConfiguration();
             $siteWriter = new Core\Configuration\SiteWriter(
                 $configPath,
                 $eventDispatcher,
@@ -62,16 +57,13 @@ trait SiteTrait
             );
         } else {
             // @todo Remove once support for TYPO3 v12 is dropped
-            $siteConfiguration = $siteWriter = new Core\Configuration\SiteConfiguration(
-                $configPath,
-                new Core\EventDispatcher\NoopEventDispatcher(),
-            );
+            $siteConfiguration = $siteWriter = $this->getSiteConfiguration();
         }
 
-        $siteWriter->createNewBasicSite(static::$testSiteIdentifier, 1, $baseUrl);
+        $siteWriter->createNewBasicSite($siteIdentifier, 1, $baseUrl);
 
         /** @var array{languages: array<int, mixed>} $rawConfig */
-        $rawConfig = $siteConfiguration->load(static::$testSiteIdentifier);
+        $rawConfig = $siteConfiguration->load($siteIdentifier);
         $rawConfig['sitemap_robots_inject'] = $injectSitemaps;
         $rawConfig['languages'][1] = [
             'title' => 'German',
@@ -98,12 +90,39 @@ trait SiteTrait
             'languageId' => 2,
         ];
 
-        $siteWriter->write(static::$testSiteIdentifier, $rawConfig);
+        $siteWriter->write($siteIdentifier, $rawConfig);
 
-        $site = $siteConfiguration->getAllExistingSites()[static::$testSiteIdentifier] ?? null;
+        $site = $siteConfiguration->getAllExistingSites()[$siteIdentifier] ?? null;
 
         self::assertInstanceOf(Core\Site\Entity\Site::class, $site);
 
         return $site;
+    }
+
+    private function getSiteConfiguration(): Core\Configuration\SiteConfiguration
+    {
+        $configPath = $this->instancePath . '/typo3conf/sites';
+        $typo3Version = new Core\Information\Typo3Version();
+
+        // @todo Remove once support for TYPO3 v12 is dropped
+        if ($typo3Version->getMajorVersion() < 13) {
+            return new Core\Configuration\SiteConfiguration(
+                $configPath,
+                new Core\EventDispatcher\NoopEventDispatcher(),
+            );
+        }
+
+        $eventDispatcher = new Core\EventDispatcher\NoopEventDispatcher();
+        $yamlFileLoader = $this->get(Core\Configuration\Loader\YamlFileLoader::class);
+
+        return new Core\Configuration\SiteConfiguration(
+            $configPath,
+            $this->get(Core\Site\SiteSettingsFactory::class),
+            $this->get(Core\Site\Set\SetRegistry::class),
+            $eventDispatcher,
+            new Core\Cache\Frontend\NullFrontend('core'),
+            $yamlFileLoader,
+            new Core\Cache\Frontend\NullFrontend('runtime'),
+        );
     }
 }

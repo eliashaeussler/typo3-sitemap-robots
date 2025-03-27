@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3SitemapRobots\Middleware;
 
 use EliasHaeussler\Typo3SitemapLocator;
+use EliasHaeussler\Typo3SitemapRobots\Enum;
 use EliasHaeussler\Typo3SitemapRobots\Exception;
 use EliasHaeussler\Typo3SitemapRobots\Resource;
 use Psr\Http\Message;
@@ -57,8 +58,13 @@ final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
             return $handler->handle($request);
         }
 
+        // Parse site configuration value to enhancement strategy
+        /** @var string|bool $configurationValue */
+        $configurationValue = $site->getConfiguration()['sitemap_robots_inject'] ?? '';
+        $enhancementStrategy = Enum\EnhancementStrategy::fromConfiguration($configurationValue);
+
         // Early return if sitemap injection is disabled
-        if (!($site->getConfiguration()['sitemap_robots_inject'] ?? false)) {
+        if ($enhancementStrategy === null) {
             return $handler->handle($request);
         }
 
@@ -83,7 +89,7 @@ final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
         }
 
         try {
-            $this->enhancer->enhanceWithSitemaps($response->getBody(), $site);
+            $this->enhancer->enhanceWithSitemaps($response->getBody(), $site, $enhancementStrategy);
         } catch (Typo3SitemapLocator\Exception\Exception $exception) {
             $this->logger->warning(
                 'Unable to inject XML sitemaps into robots.txt at {url}.',

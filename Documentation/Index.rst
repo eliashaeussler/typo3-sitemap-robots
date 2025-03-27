@@ -75,6 +75,13 @@ local files.
         ..  card-footer::   :ref:`Learn how to use this extension <usage>`
             :button-style: btn btn-secondary stretched-link
 
+    ..  card::  Migration
+
+        Required migration steps when upgrading the extension to a new major version.
+
+        ..  card-footer::   :ref:`View upgrade guide <migration>`
+            :button-style: btn btn-secondary stretched-link
+
 ..  toctree::
     :hidden:
 
@@ -82,6 +89,7 @@ local files.
     Installation/Index
     Configuration/Index
     Usage/Index
+    Migration/Index
     Contributing/Index
 
 ..  toctree::

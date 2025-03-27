@@ -102,12 +102,26 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
     #[Framework\Attributes\Test]
     public function processDoesNothingIfSitemapInjectionIsDisabled(): void
     {
-        $site = $this->createSite(false);
+        $site = $this->createSite('');
         $request = $this->request->withAttribute('site', $site);
 
         $actual = $this->subject->process($request, $this->handler);
 
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
+    }
+
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('processMigratesLegacySitemapInjectionConfigurationValueDataProvider')]
+    public function processMigratesLegacySitemapInjectionConfigurationValue(bool $configuration, string $expected): void
+    {
+        $this->requestFactory->handler->append(new Core\Http\Response());
+
+        $site = $this->createSite($configuration);
+        $request = $this->request->withAttribute('site', $site);
+
+        $actual = $this->subject->process($request, $this->handler);
+
+        self::assertStringContainsString($expected, (string)$actual->getBody());
     }
 
     #[Framework\Attributes\Test]
@@ -120,16 +134,6 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
         $actual = $this->subject->process($request, $this->handler);
 
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
-    }
-
-    #[Framework\Attributes\Test]
-    public function processInjectsLocatedSitemapsOfDefaultSiteLanguageIfNoSiteLanguageIsAvailableInRequest(): void
-    {
-        $this->requestFactory->handler->append(new Core\Http\Response());
-
-        $actual = $this->subject->process($this->request, $this->handler);
-
-        self::assertStringContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
 
     #[Framework\Attributes\Test]
@@ -191,9 +195,29 @@ TXT,
     }
 
     #[Framework\Attributes\Test]
+    public function processInjectsSitemapsOfAllSiteLanguages(): void
+    {
+        $this->requestFactory->handler->append(
+            new Core\Http\Response(),
+            new Core\Http\Response(),
+            new Core\Http\Response(),
+        );
+
+        $site = $this->createSite('all');
+        $request = $this->request->withAttribute('site', $site);
+
+        $actual = $this->subject->process($request, $this->handler);
+        $body = (string)$actual->getBody();
+
+        self::assertStringContainsString(self::getExpectedContent(), $body);
+        self::assertStringContainsString(self::getExpectedContent('de'), $body);
+        self::assertStringContainsString(self::getExpectedContent('fr'), $body);
+    }
+
+    #[Framework\Attributes\Test]
     public function processLogsWarningIfSitemapCannotBeResolved(): void
     {
-        $site = $this->createSite(true, '/');
+        $site = $this->createSite('default', '/');
         $request = $this->request->withAttribute('site', $site);
 
         $actual = $this->subject->process($request, $this->handler);
@@ -212,6 +236,15 @@ TXT,
             ],
             $this->logger->getAll(),
         );
+    }
+
+    /**
+     * @return \Generator<string, array{bool, string}>
+     */
+    public static function processMigratesLegacySitemapInjectionConfigurationValueDataProvider(): \Generator
+    {
+        yield 'true' => [true, self::getExpectedContent()];
+        yield 'false' => [false, ''];
     }
 
     private static function getExpectedContent(string $language = ''): string
