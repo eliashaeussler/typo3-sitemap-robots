@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 use EliasHaeussler\RectorConfig\Config\Config;
 use EliasHaeussler\RectorConfig\Entity\Version;
-use Rector\Arguments\Rector\ClassMethod\ArgumentAdderRector;
 use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Symfony\DependencyInjection\Rector\Trait_\TraitGetByTypeToInjectRector;
@@ -46,14 +45,11 @@ return static function (RectorConfig $rectorConfig): void {
             $rootPath . '/Tests/CGL/vendor/*',
             $rootPath . '/var/*',
         )
-        ->withPHPUnit(Version::createMajor(9))
+        ->withPHPUnit(Version::createMajor(10))
         ->withSymfony()
         ->withTYPO3()
         ->skip(AnnotationToAttributeRector::class, [
             $rootPath . '/Classes/Extension.php',
-        ])
-        ->skip(ArgumentAdderRector::class, [
-            $rootPath . '/Configuration/Services.php',
         ])
         ->skip(TraitGetByTypeToInjectRector::class, [
             $rootPath . '/Tests/Functional/SiteTrait.php',
