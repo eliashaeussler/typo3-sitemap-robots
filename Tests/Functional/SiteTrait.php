@@ -60,15 +60,12 @@ trait SiteTrait
                 $eventDispatcher,
                 $yamlFileLoader,
             );
-        } elseif ($typo3Version->getMajorVersion() >= 12) {
+        } else {
             // @todo Remove once support for TYPO3 v12 is dropped
             $siteConfiguration = $siteWriter = new Core\Configuration\SiteConfiguration(
                 $configPath,
                 new Core\EventDispatcher\NoopEventDispatcher(),
             );
-        } else {
-            // @todo Remove once support for TYPO3 v11 is dropped
-            $siteConfiguration = $siteWriter = new Core\Configuration\SiteConfiguration($configPath);
         }
 
         $siteWriter->createNewBasicSite(static::$testSiteIdentifier, 1, $baseUrl);

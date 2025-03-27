@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3SitemapRobots\Tests\Functional\Resource;
 use EliasHaeussler\Typo3SitemapLocator;
 use EliasHaeussler\Typo3SitemapRobots as Src;
 use EliasHaeussler\Typo3SitemapRobots\Tests;
+use PHPUnit\Framework;
 use TYPO3\CMS\Core;
 use TYPO3\TestingFramework;
 
@@ -34,8 +35,8 @@ use TYPO3\TestingFramework;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
- * @covers \EliasHaeussler\Typo3SitemapRobots\Resource\RobotsTxtEnhancer
  */
+#[Framework\Attributes\CoversClass(Src\Resource\RobotsTxtEnhancer::class)]
 final class RobotsTxtEnhancerTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     use Tests\Functional\SiteTrait;
@@ -81,9 +82,7 @@ TXT);
         }
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function enhanceWithSitemapsThrowsExceptionIfSitemapCannotBeResolved(): void
     {
         $site = $this->createSite(true, '/');
@@ -93,9 +92,7 @@ TXT);
         $this->subject->enhanceWithSitemaps($this->robotsTxt, $site);
     }
 
-    /**
-     * @test
-     */
+    #[Framework\Attributes\Test]
     public function enhanceWithSitemapsInjectsValidLocatedSitemaps(): void
     {
         $this->requestFactory->handler->append(new Core\Http\Response());
