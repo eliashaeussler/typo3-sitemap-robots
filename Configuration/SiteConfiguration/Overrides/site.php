@@ -23,32 +23,26 @@ $GLOBALS['SiteConfiguration']['site']['columns']['sitemap_robots_inject'] = [
     'label' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_robots_inject.label',
     'description' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_robots_inject.description',
     'config' => [
-        'type' => 'check',
-        'renderType' => 'checkboxLabeledToggle',
+        'type' => 'select',
+        'renderType' => 'selectSingle',
         'items' => [
             [
-                'label' => '',
-                'labelChecked' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_robots_inject.item.checked',
-                'labelUnchecked' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_robots_inject.item.unchecked',
+                'label' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_robots_inject.item.none',
+                'value' => '',
+                'icon' => 'actions-minus-circle-alt',
+            ],
+            [
+                'label' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_robots_inject.item.default',
+                'value' => \EliasHaeussler\Typo3SitemapRobots\Enum\EnhancementStrategy::DefaultLanguage->value,
+                'icon' => 'actions-house',
+            ],
+            [
+                'label' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_robots_inject.item.all',
+                'value' => \EliasHaeussler\Typo3SitemapRobots\Enum\EnhancementStrategy::AllLanguages->value,
+                'icon' => 'actions-globe',
             ],
         ],
     ],
 ];
 
-$GLOBALS['SiteConfiguration']['site']['columns']['sitemap_language_robots_inject'] = [
-    'label' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_language_robots_inject.label',
-    'description' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_language_robots_inject.description',
-    'config' => [
-        'type' => 'check',
-        'renderType' => 'checkboxLabeledToggle',
-        'items' => [
-            [
-                'label' => '',
-                'labelChecked' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_robots_inject.item.checked',
-                'labelUnchecked' => 'LLL:EXT:sitemap_robots/Resources/Private/Language/locallang_db.xlf:site.sitemap_robots_inject.item.unchecked',
-            ],
-        ],
-    ],
-];
-
-$GLOBALS['SiteConfiguration']['site']['palettes']['xml_sitemap']['showitem'] .= ', --linebreak--, sitemap_robots_inject, sitemap_language_robots_inject';
+$GLOBALS['SiteConfiguration']['site']['palettes']['xml_sitemap']['showitem'] .= ', --linebreak--, sitemap_robots_inject';

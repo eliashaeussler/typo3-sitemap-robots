@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3SitemapRobots\Resource;
 
 use EliasHaeussler\Typo3SitemapLocator;
+use EliasHaeussler\Typo3SitemapRobots\Enum;
 use Psr\Http\Message;
 use TYPO3\CMS\Core;
 
@@ -46,29 +47,29 @@ final class RobotsTxtEnhancer
     public function enhanceWithSitemaps(
         Message\StreamInterface $robotsTxt,
         Core\Site\Entity\Site $site,
+        Enum\EnhancementStrategy $enhancementStrategy = Enum\EnhancementStrategy::DefaultLanguage,
     ): void {
-        if ($site->getConfiguration()['sitemap_language_robots_inject'] ?? false) {
-            //get sitemaps of all languages. sitemaps of untranslated pages are removed by `isValidSitemap`
-            $languages = array_filter($site->getAllLanguages(), function($language){
-                return $language->isEnabled();
-            });
-
-            $sitemaps = array_merge(...array_map(function($language) use ($site){
-                return $this->sitemapLocator->locateBySite($site, $language);
-            },$languages));
-        } else {
-            //get sitemap of default language
-            $sitemaps = $this->sitemapLocator->locateBySite($site);
-        }
+        // Resolve site languages based on given inject option
+        $siteLanguages = match ($enhancementStrategy) {
+            Enum\EnhancementStrategy::AllLanguages => array_filter(
+                $site->getAllLanguages(),
+                static fn(Core\Site\Entity\SiteLanguage $language) => $language->isEnabled(),
+            ),
+            Enum\EnhancementStrategy::DefaultLanguage => [$site->getDefaultLanguage()],
+        };
 
         // Go to end of file stream
         $robotsTxt->seek(0, SEEK_END);
 
         // Inject all valid sitemaps into robots.txt file stream
-        foreach ($sitemaps as $sitemap) {
-            if ($this->sitemapLocator->isValidSitemap($sitemap)) {
-                $robotsTxt->write(PHP_EOL);
-                $robotsTxt->write($this->decorateSitemapForRobotsTxt($sitemap));
+        foreach ($siteLanguages as $siteLanguage) {
+            $sitemaps = $this->sitemapLocator->locateBySite($site, $siteLanguage);
+
+            foreach ($sitemaps as $sitemap) {
+                if ($this->sitemapLocator->isValidSitemap($sitemap)) {
+                    $robotsTxt->write(PHP_EOL);
+                    $robotsTxt->write($this->decorateSitemapForRobotsTxt($sitemap));
+                }
             }
         }
     }

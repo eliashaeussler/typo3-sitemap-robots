@@ -85,7 +85,7 @@ TXT);
     #[Framework\Attributes\Test]
     public function enhanceWithSitemapsThrowsExceptionIfSitemapCannotBeResolved(): void
     {
-        $site = $this->createSite(true, '/');
+        $site = $this->createSite('default', '/');
 
         $this->expectException(Typo3SitemapLocator\Exception\BaseUrlIsNotSupported::class);
 
@@ -104,6 +104,28 @@ TXT);
 User-Agent: *
 Allow: /
 Sitemap: https://typo3-testing.local/sitemap.xml
+TXT,
+            trim((string)$this->robotsTxt),
+        );
+    }
+
+    #[Framework\Attributes\Test]
+    public function enhanceWithSitemapsInjectsValidLocatedSitemapsOfAllEnabledSiteLanguages(): void
+    {
+        $this->requestFactory->handler->append(
+            new Core\Http\Response(),
+            (new Core\Http\Response())->withStatus(404),
+            new Core\Http\Response(),
+        );
+
+        $this->subject->enhanceWithSitemaps($this->robotsTxt, $this->site, Src\Enum\EnhancementStrategy::AllLanguages);
+
+        self::assertSame(
+            <<<TXT
+User-Agent: *
+Allow: /
+Sitemap: https://typo3-testing.local/sitemap.xml
+Sitemap: https://typo3-testing.local/fr/sitemap.xml
 TXT,
             trim((string)$this->robotsTxt),
         );

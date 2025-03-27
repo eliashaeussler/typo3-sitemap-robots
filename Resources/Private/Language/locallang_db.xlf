@@ -7,23 +7,18 @@
 				<source>Inject XML sitemaps into robots.txt</source>
 			</trans-unit>
 			<trans-unit id="site.sitemap_robots_inject.description" resname="site.sitemap_robots_inject.description">
-				<source>Check the button below to inject all located XML sitemaps into robots.txt.
+				<source>Check the items below to inject located XML sitemaps into robots.txt.
 Note: Only valid sitemaps will be injected. If a located XML sitemap does not exist, it is skipped to avoid errors in robots.txt.</source>
 			</trans-unit>
-			<trans-unit id="site.sitemap_robots_inject.item.checked" resname="site.sitemap_robots_inject.item.checked">
-				<source>Enabled</source>
+			<trans-unit id="site.sitemap_robots_inject.item.none" resname="site.sitemap_robots_inject.item.none">
+				<source>Don't inject sitemaps</source>
 			</trans-unit>
-			<trans-unit id="site.sitemap_robots_inject.item.unchecked" resname="site.sitemap_robots_inject.item.unchecked">
-				<source>Disabled</source>
+			<trans-unit id="site.sitemap_robots_inject.item.default" resname="site.sitemap_robots_inject.item.default">
+				<source>Default site language only</source>
 			</trans-unit>
-
-			<trans-unit id="site.sitemap_language_robots_inject.label" resname="site.sitemap_language_robots_inject.label">
-			    <source>Inject Language XML sitemaps into robots.txt</source>
-            </trans-unit>
-            <trans-unit id="site.sitemap_language_robots_inject.description" resname="site.sitemap_language_robots_inject.description">
-                <source>Check the button below to inject all located XML sitemaps of the configured site languagas into robots.txt.
-                    Note: Only valid sitemaps will be injected. If a located XML sitemap does not exist, it is skipped to avoid errors in robots.txt.</source>
-            </trans-unit>
+			<trans-unit id="site.sitemap_robots_inject.item.all" resname="site.sitemap_robots_inject.item.all">
+				<source>All available site languages</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
