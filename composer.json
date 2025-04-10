@@ -26,8 +26,8 @@
 	"require-dev": {
 		"eliashaeussler/transient-logger": "^1.0",
 		"eliashaeussler/version-bumper": "^2.1.1",
-		"phpunit/phpcov": "^9.0 || ^10.0",
-		"phpunit/phpunit": "^10.1 || ^11.0",
+		"phpunit/phpcov": "^9.0 || ^10.0 || ^11.0",
+		"phpunit/phpunit": "^10.1 || ^11.0 || ^12.0",
 		"typo3/cms-seo": "~12.4.0 || ~13.4.0",
 		"typo3/testing-framework": "^8.2.3 || ^9.0.1"
 	},
