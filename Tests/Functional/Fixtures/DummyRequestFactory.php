@@ -49,7 +49,7 @@ final class DummyRequestFactory extends Core\Http\RequestFactory
     /**
      * @param array<string, mixed> $options
      */
-    public function request(string $uri, string $method = 'GET', array $options = []): Message\ResponseInterface
+    public function request(string $uri, string $method = 'GET', array $options = [], ?string $context = null): Message\ResponseInterface
     {
         return $this->client->request($method, $uri, $options);
     }
