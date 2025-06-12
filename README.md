@@ -6,8 +6,7 @@
 
 [![Coverage](https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-sitemap-robots?logo=coveralls)](https://coveralls.io/github/eliashaeussler/typo3-sitemap-robots)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/eliashaeussler/typo3-sitemap-robots?logo=codeclimate)](https://codeclimate.com/github/eliashaeussler/typo3-sitemap-robots/maintainability)
-[![CGL](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/cgl.yaml?label=cgl&logo=github)](https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/cgl.yaml)
-[![Tests](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/tests.yaml?label=tests&logo=github)](https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/tests.yaml)
+[![CI](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/ci.yaml?label=CI&logo=github)](https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/ci.yaml)
 [![Supported TYPO3 versions](https://typo3-badges.dev/badge/sitemap_robots/typo3/shields.svg)](https://extensions.typo3.org/extension/sitemap_robots)
 [![Slack](https://img.shields.io/badge/slack-%23ext--sitemap__robots-4a154b?logo=slack)](https://typo3.slack.com/archives/C06532567LM)
 
