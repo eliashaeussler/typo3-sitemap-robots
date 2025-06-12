@@ -6,11 +6,8 @@
 ..  image:: https://img.shields.io/codeclimate/maintainability/eliashaeussler/typo3-sitemap-robots?logo=codeclimate
     :target: https://codeclimate.com/github/eliashaeussler/typo3-sitemap-robots/maintainability
 
-..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/cgl.yaml?label=cgl&logo=github
-    :target: https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/cgl.yaml
-
-..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/tests.yaml?label=tests&logo=github
-    :target: https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/tests.yaml
+..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/ci.yaml?label=CI&logo=github
+    :target: https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/ci.yaml
 
 ..  _contributing:
 
@@ -76,7 +73,20 @@ Next, install all dependencies:
 
 You can access the DDEV site at https://typo3-ext-sitemap-robots.ddev.site/.
 
+..  _analyze-code:
+
+Analyze code
+------------
+
 ..  _check-code-quality:
+
+..  code-block:: bash
+
+    # All analyzers
+    ddev cgl analyze
+
+    # Specific analyzers
+    ddev cgl analyze:dependencies
 
 Check code quality
 ------------------
@@ -130,11 +140,11 @@ Run tests
     ddev test coverage:merge
 
 Code coverage reports are written to :file:`.Build/coverage`. You can
-open the last HTML report like follows:
+open the last merged HTML report like follows:
 
 ..  code-block:: bash
 
-    open .Build/coverage/html/index.html
+    open .Build/coverage/html/_merged/index.html
 
 ..  _build-documentation:
 
