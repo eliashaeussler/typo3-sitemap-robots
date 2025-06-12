@@ -41,10 +41,6 @@ $configuration
         Core\Site\Set\SetRegistry::class,
         Core\Site\SiteSettingsFactory::class,
     ])
-//    ->ignoreErrorsOnPath(
-//        $rootPath . '/Classes/DataProcessing/ExtensionConfigurationProcessor.php',
-//        [ComposerDependencyAnalyser\Config\ErrorType::UNKNOWN_CLASS],
-//    )
 ;
 
 return $configuration;
