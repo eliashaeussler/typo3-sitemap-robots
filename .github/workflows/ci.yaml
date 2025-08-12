@@ -20,7 +20,7 @@ jobs:
     needs: prepare
     if: needs.prepare.outputs.continue == 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -72,7 +72,7 @@ jobs:
     needs: prepare
     if: ${{ needs.prepare.outputs.continue == 'true' && github.ref_name == 'main' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Upload sources
         uses: crowdin/github-action@v2
@@ -104,7 +104,7 @@ jobs:
       typo3DatabaseUsername: root
       typo3DatabasePassword: root
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -142,7 +142,7 @@ jobs:
       typo3DatabaseUsername: root
       typo3DatabasePassword: root
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -182,7 +182,7 @@ jobs:
     needs: test-coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
