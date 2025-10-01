@@ -26,7 +26,7 @@ by the following configuration:
     Configure injection of located XML sitemaps into the :file:`robots.txt`
     of the current site.
 
-    ..  versionadded:: 0.2.0
+    ..  versionchanged:: 0.2.0
 
         `Feature: #65 - Add option to inject sitemap language versions into robots.txt <https://github.com/eliashaeussler/typo3-sitemap-robots/pull/65>`__
 
