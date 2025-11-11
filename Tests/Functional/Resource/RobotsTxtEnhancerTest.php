@@ -39,6 +39,7 @@ use TYPO3\TestingFramework;
 #[Framework\Attributes\CoversClass(Src\Resource\RobotsTxtEnhancer::class)]
 final class RobotsTxtEnhancerTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
+    use Tests\Functional\ClientMockTrait;
     use Tests\Functional\SiteTrait;
 
     protected array $testExtensionsToLoad = [
@@ -47,7 +48,6 @@ final class RobotsTxtEnhancerTest extends TestingFramework\Core\Functional\Funct
 
     protected bool $initializeDatabase = false;
 
-    private Tests\Functional\Fixtures\DummyRequestFactory $requestFactory;
     private Src\Resource\RobotsTxtEnhancer $subject;
     private Core\Site\Entity\Site $site;
     private Core\Http\Stream $robotsTxt;
@@ -58,10 +58,14 @@ final class RobotsTxtEnhancerTest extends TestingFramework\Core\Functional\Funct
 
         $cache = $this->get(Typo3SitemapLocator\Cache\SitemapsCache::class);
 
-        $this->requestFactory = new Tests\Functional\Fixtures\DummyRequestFactory();
+        $this->registerMockHandler();
+
         $this->subject = new Src\Resource\RobotsTxtEnhancer(
             new Typo3SitemapLocator\Sitemap\SitemapLocator(
-                $this->requestFactory,
+                new Typo3SitemapLocator\Http\Client\ClientFactory(
+                    $this->get(Core\Http\Client\GuzzleClientFactory::class),
+                    $this->eventDispatcher,
+                ),
                 $cache,
                 new Core\EventDispatcher\NoopEventDispatcher(),
                 [
@@ -95,7 +99,7 @@ TXT);
     #[Framework\Attributes\Test]
     public function enhanceWithSitemapsInjectsValidLocatedSitemaps(): void
     {
-        $this->requestFactory->handler->append(new Core\Http\Response());
+        $this->createMockHandler()->append(new Core\Http\Response());
 
         $this->subject->enhanceWithSitemaps($this->robotsTxt, $this->site);
 
@@ -112,7 +116,7 @@ TXT,
     #[Framework\Attributes\Test]
     public function enhanceWithSitemapsInjectsValidLocatedSitemapsOfAllEnabledSiteLanguages(): void
     {
-        $this->requestFactory->handler->append(
+        $this->createMockHandler()->append(
             new Core\Http\Response(),
             (new Core\Http\Response())->withStatus(404),
             new Core\Http\Response(),

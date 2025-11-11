@@ -40,7 +40,8 @@ use TYPO3\TestingFramework;
 #[Framework\Attributes\CoversClass(Src\Middleware\RobotsTxtSitemapHandler::class)]
 final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
-    use Src\Tests\Functional\SiteTrait;
+    use Tests\Functional\ClientMockTrait;
+    use Tests\Functional\SiteTrait;
 
     protected array $testExtensionsToLoad = [
         'sitemap_locator',
@@ -49,12 +50,11 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
 
     protected bool $initializeDatabase = false;
 
-    private Tests\Functional\Fixtures\DummyRequestFactory $requestFactory;
     private TransientLogger\TransientLogger $logger;
     private Src\Middleware\RobotsTxtSitemapHandler $subject;
     private Core\Site\Entity\Site $site;
     private Core\Http\ServerRequest $request;
-    private Tests\Functional\Fixtures\DummyRequestHandler $handler;
+    private Tests\Functional\Fixtures\DummyRequestHandler $requestHandler;
 
     protected function setUp(): void
     {
@@ -62,12 +62,16 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
 
         $cache = $this->get(Typo3SitemapLocator\Cache\SitemapsCache::class);
 
-        $this->requestFactory = new Tests\Functional\Fixtures\DummyRequestFactory();
+        $this->registerMockHandler();
+
         $this->logger = new TransientLogger\TransientLogger();
         $this->subject = new Src\Middleware\RobotsTxtSitemapHandler(
             new Src\Resource\RobotsTxtEnhancer(
                 new Typo3SitemapLocator\Sitemap\SitemapLocator(
-                    $this->requestFactory,
+                    new Typo3SitemapLocator\Http\Client\ClientFactory(
+                        $this->get(Core\Http\Client\GuzzleClientFactory::class),
+                        $this->eventDispatcher,
+                    ),
                     $cache,
                     new Core\EventDispatcher\NoopEventDispatcher(),
                     [
@@ -81,7 +85,7 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
         $this->site = $this->createSite();
         $this->request = new Core\Http\ServerRequest('https://typo3-testing.local/robots.txt');
         $this->request = $this->request->withAttribute('site', $this->site);
-        $this->handler = new Tests\Functional\Fixtures\DummyRequestHandler();
+        $this->requestHandler = new Tests\Functional\Fixtures\DummyRequestHandler();
 
         // Flush sitemaps cache
         foreach ($this->site->getLanguages() as $siteLanguage) {
@@ -94,7 +98,7 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
     {
         $request = $this->request->withoutAttribute('site');
 
-        $actual = $this->subject->process($request, $this->handler);
+        $actual = $this->subject->process($request, $this->requestHandler);
 
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
@@ -105,7 +109,7 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
         $site = $this->createSite('');
         $request = $this->request->withAttribute('site', $site);
 
-        $actual = $this->subject->process($request, $this->handler);
+        $actual = $this->subject->process($request, $this->requestHandler);
 
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
@@ -114,12 +118,12 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
     #[Framework\Attributes\DataProvider('processMigratesLegacySitemapInjectionConfigurationValueDataProvider')]
     public function processMigratesLegacySitemapInjectionConfigurationValue(bool $configuration, string $expected): void
     {
-        $this->requestFactory->handler->append(new Core\Http\Response());
+        $this->createMockHandler()->append(new Core\Http\Response());
 
         $site = $this->createSite($configuration);
         $request = $this->request->withAttribute('site', $site);
 
-        $actual = $this->subject->process($request, $this->handler);
+        $actual = $this->subject->process($request, $this->requestHandler);
 
         self::assertStringContainsString($expected, (string)$actual->getBody());
     }
@@ -131,7 +135,7 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
             new Core\Http\Uri('https://typo3-testing.local/foo'),
         );
 
-        $actual = $this->subject->process($request, $this->handler);
+        $actual = $this->subject->process($request, $this->requestHandler);
 
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
@@ -149,11 +153,11 @@ Allow: /
 TXT,
         );
 
-        $this->requestFactory->handler->append(new Core\Http\Response());
+        $this->createMockHandler()->append(new Core\Http\Response());
 
         $expected = self::getExpectedContent();
 
-        $actual = $this->subject->process($this->request, $this->handler);
+        $actual = $this->subject->process($this->request, $this->requestHandler);
 
         self::assertSame(
             <<<TXT
@@ -173,10 +177,10 @@ TXT,
         $response = new Core\Http\Response();
         $response = $response->withStatus(404);
 
-        $this->requestFactory->handler->append(new Core\Http\Response());
-        $this->handler->expectedResponse = $response;
+        $this->createMockHandler()->append(new Core\Http\Response());
+        $this->requestHandler->expectedResponse = $response;
 
-        $actual = $this->subject->process($this->request, $this->handler);
+        $actual = $this->subject->process($this->request, $this->requestHandler);
 
         self::assertSame($response, $actual);
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
@@ -185,11 +189,11 @@ TXT,
     #[Framework\Attributes\Test]
     public function processIgnoresSiteLanguageWhenEnhancingRobotsTxt(): void
     {
-        $this->requestFactory->handler->append(new Core\Http\Response());
+        $this->createMockHandler()->append(new Core\Http\Response());
 
         $request = $this->request->withAttribute('language', $this->site->getLanguageById(1));
 
-        $actual = $this->subject->process($request, $this->handler);
+        $actual = $this->subject->process($request, $this->requestHandler);
 
         self::assertStringContainsString(self::getExpectedContent(), (string)$actual->getBody());
     }
@@ -197,7 +201,7 @@ TXT,
     #[Framework\Attributes\Test]
     public function processInjectsSitemapsOfAllSiteLanguages(): void
     {
-        $this->requestFactory->handler->append(
+        $this->createMockHandler()->append(
             new Core\Http\Response(),
             new Core\Http\Response(),
             new Core\Http\Response(),
@@ -206,7 +210,7 @@ TXT,
         $site = $this->createSite('all');
         $request = $this->request->withAttribute('site', $site);
 
-        $actual = $this->subject->process($request, $this->handler);
+        $actual = $this->subject->process($request, $this->requestHandler);
         $body = (string)$actual->getBody();
 
         self::assertStringContainsString(self::getExpectedContent(), $body);
@@ -220,7 +224,7 @@ TXT,
         $site = $this->createSite('default', '/');
         $request = $this->request->withAttribute('site', $site);
 
-        $actual = $this->subject->process($request, $this->handler);
+        $actual = $this->subject->process($request, $this->requestHandler);
 
         self::assertStringNotContainsString(self::getExpectedContent(), (string)$actual->getBody());
         self::assertEquals(
