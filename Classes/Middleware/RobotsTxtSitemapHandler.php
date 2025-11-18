@@ -38,12 +38,12 @@ use TYPO3\CMS\Core;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
+final readonly class RobotsTxtSitemapHandler implements Server\MiddlewareInterface
 {
     public function __construct(
-        private readonly Resource\RobotsTxtEnhancer $enhancer,
-        private readonly Resource\RobotsTxtFactory $factory,
-        private readonly Log\LoggerInterface $logger,
+        private Resource\RobotsTxtEnhancer $enhancer,
+        private Resource\RobotsTxtFactory $factory,
+        private Log\LoggerInterface $logger,
     ) {}
 
     public function process(

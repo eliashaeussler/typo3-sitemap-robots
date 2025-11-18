@@ -34,11 +34,11 @@ use TYPO3\CMS\Install;
  * @license GPL-2.0-or-later
  */
 #[Install\Attribute\UpgradeWizard('sitemapRobotsLegacySiteConfigurationParameterUpgradeWizard')]
-final class LegacySiteConfigurationParameterUpgradeWizard implements Install\Updates\UpgradeWizardInterface
+final readonly class LegacySiteConfigurationParameterUpgradeWizard implements Install\Updates\UpgradeWizardInterface
 {
     public function __construct(
-        private readonly Core\Configuration\SiteConfiguration $siteConfiguration,
-        private readonly Core\Configuration\SiteWriter $siteWriter,
+        private Core\Configuration\SiteConfiguration $siteConfiguration,
+        private Core\Configuration\SiteWriter $siteWriter,
     ) {}
 
     public function getTitle(): string
