@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 use Composer\Autoload;
 use ShipMonk\ComposerDependencyAnalyser;
-use TYPO3\CMS\Core;
 
 $rootPath = dirname(__DIR__, 2);
 
@@ -35,11 +34,6 @@ $configuration = new ComposerDependencyAnalyser\Config\Configuration();
 $configuration
     ->addPathsToExclude([
         $rootPath . '/Tests/CGL',
-    ])
-    ->ignoreUnknownClasses([
-        Core\Configuration\SiteWriter::class,
-        Core\Site\Set\SetRegistry::class,
-        Core\Site\SiteSettingsFactory::class,
     ])
 ;
 

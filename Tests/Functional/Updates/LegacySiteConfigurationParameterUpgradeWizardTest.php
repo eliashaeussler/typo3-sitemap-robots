@@ -55,7 +55,10 @@ final class LegacySiteConfigurationParameterUpgradeWizardTest extends TestingFra
         parent::setUp();
 
         $this->siteConfiguration = $this->getSiteConfiguration();
-        $this->subject = new Src\Updates\LegacySiteConfigurationParameterUpgradeWizard($this->siteConfiguration);
+        $this->subject = new Src\Updates\LegacySiteConfigurationParameterUpgradeWizard(
+            $this->siteConfiguration,
+            $this->get(Core\Configuration\SiteWriter::class),
+        );
     }
 
     #[Framework\Attributes\Test]
