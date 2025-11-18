@@ -36,13 +36,10 @@ use TYPO3\CMS\Install;
 #[Install\Attribute\UpgradeWizard('sitemapRobotsLegacySiteConfigurationParameterUpgradeWizard')]
 final class LegacySiteConfigurationParameterUpgradeWizard implements Install\Updates\UpgradeWizardInterface
 {
-    private readonly Core\Information\Typo3Version $typo3Version;
-
     public function __construct(
         private readonly Core\Configuration\SiteConfiguration $siteConfiguration,
-    ) {
-        $this->typo3Version = new Core\Information\Typo3Version();
-    }
+        private readonly Core\Configuration\SiteWriter $siteWriter,
+    ) {}
 
     public function getTitle(): string
     {
@@ -71,7 +68,7 @@ final class LegacySiteConfigurationParameterUpgradeWizard implements Install\Upd
             }
 
             try {
-                $this->writeMigratedSiteConfiguration($identifier, $configuration);
+                $this->siteWriter->write($identifier, $configuration);
             } catch (Core\Configuration\Exception\SiteConfigurationWriteException) {
                 $successful = false;
             }
@@ -110,20 +107,5 @@ final class LegacySiteConfigurationParameterUpgradeWizard implements Install\Upd
         }
 
         return $outdatedSites;
-    }
-
-    /**
-     * @param array<string, mixed> $configuration
-     */
-    private function writeMigratedSiteConfiguration(string $identifier, array $configuration): void
-    {
-        if ($this->typo3Version->getMajorVersion() >= 13) {
-            $siteWriter = Core\Utility\GeneralUtility::makeInstance(Core\Configuration\SiteWriter::class);
-        } else {
-            // @todo Remove once support for TYPO3 v12 is dropped
-            $siteWriter = $this->siteConfiguration;
-        }
-
-        $siteWriter->write($identifier, $configuration);
     }
 }

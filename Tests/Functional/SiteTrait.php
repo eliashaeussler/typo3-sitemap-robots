@@ -43,23 +43,11 @@ trait SiteTrait
         string $siteIdentifier = 'test-site',
     ): Core\Site\Entity\Site {
         $configPath = $this->instancePath . '/typo3conf/sites';
-        $typo3Version = new Core\Information\Typo3Version();
+        $eventDispatcher = new Core\EventDispatcher\NoopEventDispatcher();
+        $yamlFileLoader = $this->get(Core\Configuration\Loader\YamlFileLoader::class);
 
-        if ($typo3Version->getMajorVersion() >= 13) {
-            $eventDispatcher = new Core\EventDispatcher\NoopEventDispatcher();
-            $yamlFileLoader = $this->get(Core\Configuration\Loader\YamlFileLoader::class);
-
-            $siteConfiguration = $this->getSiteConfiguration();
-            $siteWriter = new Core\Configuration\SiteWriter(
-                $configPath,
-                $eventDispatcher,
-                $yamlFileLoader,
-            );
-        } else {
-            // @todo Remove once support for TYPO3 v12 is dropped
-            $siteConfiguration = $siteWriter = $this->getSiteConfiguration();
-        }
-
+        $siteConfiguration = $this->getSiteConfiguration();
+        $siteWriter = new Core\Configuration\SiteWriter($configPath, $eventDispatcher, $yamlFileLoader);
         $siteWriter->createNewBasicSite($siteIdentifier, 1, $baseUrl);
 
         /** @var array{languages: array<int, mixed>} $rawConfig */
@@ -101,27 +89,13 @@ trait SiteTrait
 
     private function getSiteConfiguration(): Core\Configuration\SiteConfiguration
     {
-        $configPath = $this->instancePath . '/typo3conf/sites';
-        $typo3Version = new Core\Information\Typo3Version();
-
-        // @todo Remove once support for TYPO3 v12 is dropped
-        if ($typo3Version->getMajorVersion() < 13) {
-            return new Core\Configuration\SiteConfiguration(
-                $configPath,
-                new Core\EventDispatcher\NoopEventDispatcher(),
-            );
-        }
-
-        $eventDispatcher = new Core\EventDispatcher\NoopEventDispatcher();
-        $yamlFileLoader = $this->get(Core\Configuration\Loader\YamlFileLoader::class);
-
         return new Core\Configuration\SiteConfiguration(
-            $configPath,
+            $this->instancePath . '/typo3conf/sites',
             $this->get(Core\Site\SiteSettingsFactory::class),
             $this->get(Core\Site\Set\SetRegistry::class),
-            $eventDispatcher,
+            new Core\EventDispatcher\NoopEventDispatcher(),
             new Core\Cache\Frontend\NullFrontend('core'),
-            $yamlFileLoader,
+            $this->get(Core\Configuration\Loader\YamlFileLoader::class),
             new Core\Cache\Frontend\NullFrontend('runtime'),
         );
     }
