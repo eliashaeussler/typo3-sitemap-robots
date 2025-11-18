@@ -34,15 +34,9 @@ enum EnhancementStrategy: string
     case AllLanguages = 'all';
     case DefaultLanguage = 'default';
 
-    public static function fromConfiguration(string|bool $configuration): ?self
+    public static function fromConfiguration(string $configuration): ?self
     {
-        // BC layer: Handle legacy configuration values
-        // @todo Remove with v1 of the extension
-        if ($configuration === true) {
-            return self::DefaultLanguage;
-        }
-
-        if ($configuration === false || $configuration === '') {
+        if ($configuration === '') {
             return null;
         }
 

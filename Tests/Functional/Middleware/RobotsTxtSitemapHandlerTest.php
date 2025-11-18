@@ -115,20 +115,6 @@ final class RobotsTxtSitemapHandlerTest extends TestingFramework\Core\Functional
     }
 
     #[Framework\Attributes\Test]
-    #[Framework\Attributes\DataProvider('processMigratesLegacySitemapInjectionConfigurationValueDataProvider')]
-    public function processMigratesLegacySitemapInjectionConfigurationValue(bool $configuration, string $expected): void
-    {
-        $this->createMockHandler()->append(new Core\Http\Response());
-
-        $site = $this->createSite($configuration);
-        $request = $this->request->withAttribute('site', $site);
-
-        $actual = $this->subject->process($request, $this->requestHandler);
-
-        self::assertStringContainsString($expected, (string)$actual->getBody());
-    }
-
-    #[Framework\Attributes\Test]
     public function processDoesNothingIfRequestedUrlIsNotSupported(): void
     {
         $request = $this->request->withUri(
@@ -240,15 +226,6 @@ TXT,
             ],
             $this->logger->getAll(),
         );
-    }
-
-    /**
-     * @return \Generator<string, array{bool, string}>
-     */
-    public static function processMigratesLegacySitemapInjectionConfigurationValueDataProvider(): \Generator
-    {
-        yield 'true' => [true, self::getExpectedContent()];
-        yield 'false' => [false, ''];
     }
 
     private static function getExpectedContent(string $language = ''): string

@@ -59,7 +59,7 @@ final readonly class RobotsTxtSitemapHandler implements Server\MiddlewareInterfa
         }
 
         // Parse site configuration value to enhancement strategy
-        /** @var string|bool $configurationValue */
+        /** @var string $configurationValue */
         $configurationValue = $site->getConfiguration()['sitemap_robots_inject'] ?? '';
         $enhancementStrategy = Enum\EnhancementStrategy::fromConfiguration($configurationValue);
 
