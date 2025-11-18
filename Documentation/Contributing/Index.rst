@@ -3,9 +3,6 @@
 ..  image:: https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-sitemap-robots?logo=coveralls
     :target: https://coveralls.io/github/eliashaeussler/typo3-sitemap-robots
 
-..  image:: https://img.shields.io/codeclimate/maintainability/eliashaeussler/typo3-sitemap-robots?logo=codeclimate
-    :target: https://codeclimate.com/github/eliashaeussler/typo3-sitemap-robots/maintainability
-
 ..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-sitemap-robots/ci.yaml?label=CI&logo=github
     :target: https://github.com/eliashaeussler/typo3-sitemap-robots/actions/workflows/ci.yaml
 
