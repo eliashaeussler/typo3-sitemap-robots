@@ -37,16 +37,6 @@ use TYPO3\TestingFramework;
 final class EnhancementStrategyTest extends TestingFramework\Core\Unit\UnitTestCase
 {
     #[Framework\Attributes\Test]
-    public function fromConfigurationMigratesLegacyConfigurationValues(): void
-    {
-        self::assertSame(
-            Src\Enum\EnhancementStrategy::DefaultLanguage,
-            Src\Enum\EnhancementStrategy::fromConfiguration(true),
-        );
-        self::assertNull(Src\Enum\EnhancementStrategy::fromConfiguration(false));
-    }
-
-    #[Framework\Attributes\Test]
     public function fromConfigurationReturnsNullOnEmptyString(): void
     {
         self::assertNull(Src\Enum\EnhancementStrategy::fromConfiguration(''));
