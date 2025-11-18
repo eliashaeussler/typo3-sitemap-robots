@@ -33,7 +33,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     require $rootPath . '/.Build/vendor/autoload.php';
 
-    Config::create($rectorConfig, PhpVersion::PHP_81)
+    Config::create($rectorConfig, PhpVersion::PHP_82)
         ->in(
             $rootPath . '/Classes',
             $rootPath . '/Configuration',
@@ -45,7 +45,7 @@ return static function (RectorConfig $rectorConfig): void {
             $rootPath . '/Tests/CGL/vendor/*',
             $rootPath . '/var/*',
         )
-        ->withPHPUnit(Version::createMajor(10))
+        ->withPHPUnit(Version::createMajor(11))
         ->withSymfony()
         ->withTYPO3()
         ->skip(AnnotationToAttributeRector::class, [

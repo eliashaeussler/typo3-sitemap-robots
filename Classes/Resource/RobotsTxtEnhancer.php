@@ -34,10 +34,10 @@ use TYPO3\CMS\Core;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class RobotsTxtEnhancer
+final readonly class RobotsTxtEnhancer
 {
     public function __construct(
-        private readonly Typo3SitemapLocator\Sitemap\SitemapLocator $sitemapLocator,
+        private Typo3SitemapLocator\Sitemap\SitemapLocator $sitemapLocator,
     ) {}
 
     /**

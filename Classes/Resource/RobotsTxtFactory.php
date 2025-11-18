@@ -33,10 +33,10 @@ use TYPO3\CMS\Core;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class RobotsTxtFactory
+final readonly class RobotsTxtFactory
 {
     public function __construct(
-        private readonly Message\StreamFactoryInterface $streamFactory,
+        private Message\StreamFactoryInterface $streamFactory,
     ) {}
 
     /**
