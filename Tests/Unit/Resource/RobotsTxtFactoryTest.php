@@ -38,14 +38,14 @@ use TYPO3\TestingFramework;
 #[Framework\Attributes\CoversClass(Src\Resource\RobotsTxtFactory::class)]
 final class RobotsTxtFactoryTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    private Message\StreamFactoryInterface&Framework\MockObject\MockObject $streamFactory;
+    private Message\StreamFactoryInterface&Framework\MockObject\Stub $streamFactory;
     private Src\Resource\RobotsTxtFactory $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->streamFactory = $this->createMock(Message\StreamFactoryInterface::class);
+        $this->streamFactory = self::createStub(Message\StreamFactoryInterface::class);
         $this->subject = new Src\Resource\RobotsTxtFactory($this->streamFactory);
     }
 
