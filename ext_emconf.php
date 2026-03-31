@@ -19,6 +19,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// @todo Drop this file once support for TYPO3 v13 is dropped
+//       and TER can handle uploads with ext_emconf.php being absent
+
 /** @noinspection PhpUndefinedVariableInspection */
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Sitemap Robots',
