@@ -21,24 +21,30 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\PHPStanConfig;
-
-return PHPStanConfig\Config\Config::create(dirname(__DIR__, 2))
-    ->in(
-        'Classes',
-        'Configuration',
-        'Tests',
-    )
-    ->not(
-        'Tests/CGL'
-    )
-    ->bootstrapFiles(
-        '.Build/vendor/autoload.php',
-    )
-    ->withBaseline(__DIR__ . '/phpstan-baseline.neon')
-    ->withBleedingEdge([
-        'internalTag' => false,
-    ])
-    ->maxLevel()
-    ->toArray()
-;
+return [
+    'directories' => [
+        '.build',
+        '.ddev',
+        '.git',
+        '.github',
+        'bin',
+        'build',
+        'public',
+        'tailor-version-upload',
+        'tests',
+        'vendor',
+    ],
+    'files' => [
+        'DS_Store',
+        'CODE_OF_CONDUCT.md',
+        'CODEOWNERS',
+        'composer.lock',
+        'CONTRIBUTING.md',
+        'crowdin.yaml',
+        'editorconfig',
+        'gitattributes',
+        'gitignore',
+        'renovate.json',
+        'SECURITY.md',
+    ],
+];

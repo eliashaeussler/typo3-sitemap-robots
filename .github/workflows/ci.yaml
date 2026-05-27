@@ -1,4 +1,5 @@
 name: CI
+
 on:
   push:
     branches:
@@ -7,192 +8,68 @@ on:
     branches:
       - main
 
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   prepare:
-    name: Prepare workflow
-    uses: eliashaeussler/.github/.github/workflows/pull-request.yaml@fdc23f43e6ba48018b997f552dd39f9944c17c86 # main
+    name: 'Prepare workflow'
+    uses: eliashaeussler/gha/.github/workflows/preparation.yaml@324d9fb6c8559cb70778347a5960ce6b2dec1e30 # 0.2.2
 
-  cgl:
-    name: CGL
-    runs-on: ubuntu-latest
-    needs: prepare
-    if: needs.prepare.outputs.continue == 'true'
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          fetch-depth: 0
+  checks:
+    name: 'Checks'
 
-      # Prepare environment
-      - name: Setup PHP
-        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2
-        with:
-          # We use the minimum supported PHP version
-          php-version: 8.2 # renovate-ignore
-          tools: composer:v2, cs2pr
-          coverage: none
+    needs: [prepare]
+    if: ${{ needs.prepare.outputs.continue == 'true' }}
 
-      # Validation
-      - name: Validate composer.json
-        run: composer validate --strict
+    permissions:
+      security-events: write
 
-      # Install dependencies
-      - name: Install Composer dependencies
-        uses: ramsey/composer-install@5c2bcf28d7b060ef3c601d7b476d5430a7b46c27 # v4
-
-      # Analyze
-      - name: Analyze dependencies
-        run: composer cgl analyze:dependencies
-
-      # Linting
-      - name: Lint composer.json
-        run: composer cgl lint:composer
-      - name: Lint Editorconfig
-        run: composer cgl lint:editorconfig
-      - name: Lint PHP
-        run: composer cgl lint:php -- --format=checkstyle | cs2pr
-
-      # SCA
-      - name: SCA PHP
-        run: composer cgl sca:php -- --error-format github
-
-      # Migration
-      - name: Rector migration
-        run: composer cgl migration:rector -- --dry-run
-
-      # Documentation
-      - name: Check documentation build
-        run: |
-          mkdir -p .Build/docs
-          composer docs:build -- --no-progress --fail-on-log
-
-  crowdin:
-    name: Synchronize with Crowdin
-    runs-on: ubuntu-latest
-    needs: prepare
-    if: ${{ needs.prepare.outputs.continue == 'true' && github.ref_name == 'main' }}
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-
-      - name: Upload sources
-        uses: crowdin/github-action@8868a33591d21088edfc398968173a3b98d51706 # v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          config: '.crowdin.yaml'
-          project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
-          token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
-          crowdin_branch_name: 'main'
+    uses: eliashaeussler/gha/.github/workflows/checks.yaml@324d9fb6c8559cb70778347a5960ce6b2dec1e30 # 0.2.2
+    with:
+      # We use the minimum supported PHP version
+      php-version: 8.2 # renovate-ignore
 
   tests:
-    name: Tests (PHP ${{ matrix.php-version }}, TYPO3 ${{ matrix.typo3-version }} & ${{ matrix.dependencies }} dependencies)
-    runs-on: ubuntu-latest
-    needs: prepare
-    if: needs.prepare.outputs.continue == 'true'
+    name: 'Tests (PHP ${{ matrix.php-version }}, TYPO3 ${{ matrix.typo3-version }} & ${{ matrix.dependencies }} dependencies)'
+
+    needs: [prepare]
+    if: ${{ needs.prepare.outputs.continue == 'true' }}
+
     strategy:
       fail-fast: false
       matrix:
         php-version: ["8.2", "8.3", "8.4", "8.5"]
         typo3-version: ["13.4", "14.3"]
         dependencies: ["highest", "lowest"]
-    env:
-      typo3DatabaseName: typo3
-      typo3DatabaseHost: '127.0.0.1'
-      typo3DatabaseUsername: root
-      typo3DatabasePassword: root
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          fetch-depth: 0
 
-      # Prepare environment
-      - name: Setup PHP
-        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          tools: composer:v2
-          coverage: none
-
-      # Start MySQL service
-      - name: Start MySQL
-        run: sudo /etc/init.d/mysql start
-
-      # Install dependencies
-      - name: Install Composer dependencies
-        uses: ramsey/composer-install@5c2bcf28d7b060ef3c601d7b476d5430a7b46c27 # v4
-        with:
-          dependency-versions: ${{ matrix.dependencies }}
-          composer-options: --with=typo3/cms-core:"^${{ matrix.typo3-version }}"
-
-      # Run tests
-      - name: Run tests
-        run: composer test
+    uses: eliashaeussler/gha/.github/workflows/composer-tests.yaml@324d9fb6c8559cb70778347a5960ce6b2dec1e30 # 0.2.2
+    with:
+      php-version: ${{ matrix.php-version }}
+      typo3-version: ${{ matrix.typo3-version }}
+      dependencies: ${{ matrix.dependencies }}
+      boot-mysql: true
 
   test-coverage:
-    name: Test coverage
-    runs-on: ubuntu-latest
-    needs: prepare
-    if: needs.prepare.outputs.continue == 'true'
-    env:
-      typo3DatabaseName: typo3
-      typo3DatabaseHost: '127.0.0.1'
-      typo3DatabaseUsername: root
-      typo3DatabasePassword: root
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          fetch-depth: 0
+    name: 'Test coverage'
 
-      # Prepare environment
-      - name: Setup PHP
-        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2
-        with:
-          php-version: 8.5
-          tools: composer:v2
-          coverage: pcov
+    needs: [prepare]
+    if: ${{ needs.prepare.outputs.continue == 'true' }}
 
-      # Start MySQL service
-      - name: Start MySQL
-        run: sudo /etc/init.d/mysql start
+    uses: eliashaeussler/gha/.github/workflows/composer-test-coverage.yaml@324d9fb6c8559cb70778347a5960ce6b2dec1e30 # 0.2.2
+    with:
+      coverage-file: Build/tests/coverage/clover.xml
+      boot-mysql: true
 
-      # Install dependencies
-      - name: Install Composer dependencies
-        uses: ramsey/composer-install@5c2bcf28d7b060ef3c601d7b476d5430a7b46c27 # v4
+  crowdin:
+    name: 'Synchronize with Crowdin'
 
-      # Run tests
-      - name: Run tests
-        run: composer test:coverage
+    needs: [prepare]
+    if: ${{ needs.prepare.outputs.continue == 'true' && github.ref_name == 'main' }}
 
-      # Upload artifact
-      - name: Fix coverage path
-        working-directory: .Build/coverage
-        run: sed -i 's#/home/runner/work/typo3-sitemap-robots/typo3-sitemap-robots#${{ github.workspace }}#g' clover.xml
-      - name: Upload coverage artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
-        with:
-          name: coverage
-          path: .Build/coverage/clover.xml
-          retention-days: 7
+    secrets:
+      CROWDIN_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
 
-  report-coverage:
-    name: Report test coverage
-    needs: test-coverage
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          fetch-depth: 0
-
-      # Download artifact
-      - name: Download coverage artifact
-        id: download
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
-        with:
-          name: coverage
-
-      # Coveralls
-      - name: Coveralls report
-        uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2
-        with:
-          file: ${{ steps.download.outputs.download-path }}/clover.xml
+    uses: eliashaeussler/gha/.github/workflows/crowdin.yaml@324d9fb6c8559cb70778347a5960ce6b2dec1e30 # 0.2.2
+    with:
+      project-id: 629518

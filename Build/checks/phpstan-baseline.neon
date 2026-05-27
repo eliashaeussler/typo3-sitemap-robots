@@ -41,15 +41,3 @@ parameters:
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: ../../Configuration/SiteConfiguration/Overrides/site.php
-
-		-
-			rawMessage: 'EliasHaeussler\Typo3SitemapRobots\Tests\Functional\Fixtures\DummyRequestFactory::__construct() does not call parent constructor from TYPO3\CMS\Core\Http\RequestFactory.'
-			identifier: constructor.missingParentCall
-			count: 1
-			path: ../Functional/Fixtures/DummyRequestFactory.php
-
-		-
-			rawMessage: 'Parameter #3 $options (array<string, mixed>) of method EliasHaeussler\Typo3SitemapRobots\Tests\Functional\Fixtures\DummyRequestFactory::request() should be contravariant with parameter $options (array) of method TYPO3\CMS\Core\Http\RequestFactory::request()'
-			identifier: method.childParameterType
-			count: 1
-			path: ../Functional/Fixtures/DummyRequestFactory.php

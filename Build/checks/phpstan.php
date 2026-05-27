@@ -21,36 +21,21 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-return [
-    'directories' => [
-        '.build',
-        '.ddev',
-        '.git',
-        '.github',
-        'bin',
-        'build',
-        'public',
-        'tailor-version-upload',
-        'tests',
-        'var',
-        'vendor',
-    ],
-    'files' => [
-        'DS_Store',
-        'CODE_OF_CONDUCT.md',
-        'CODEOWNERS',
-        'composer.lock',
-        'CONTRIBUTING.md',
-        'crowdin.yaml',
-        'docker-compose.yml',
-        'editorconfig',
-        'gitattributes',
-        'gitignore',
-        'packaging_exclude.php',
-        'phpunit.functional.xml',
-        'phpunit.unit.xml',
-        'renovate.json',
-        'SECURITY.md',
-        'version-bumper.yaml',
-    ],
-];
+use EliasHaeussler\PHPStanConfig;
+
+return PHPStanConfig\Config\Config::create(dirname(__DIR__, 2))
+    ->in(
+        'Classes',
+        'Configuration',
+        'Tests',
+    )
+    ->bootstrapFiles(
+        '.Build/vendor/autoload.php',
+    )
+    ->withBaseline(__DIR__ . '/phpstan-baseline.neon')
+    ->withBleedingEdge([
+        'internalTag' => false,
+    ])
+    ->maxLevel()
+    ->toArray()
+;
