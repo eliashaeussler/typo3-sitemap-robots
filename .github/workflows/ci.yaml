@@ -14,7 +14,7 @@ permissions:
 jobs:
   prepare:
     name: 'Prepare workflow'
-    uses: eliashaeussler/gha/.github/workflows/preparation.yaml@324d9fb6c8559cb70778347a5960ce6b2dec1e30 # 0.2.2
+    uses: eliashaeussler/gha/.github/workflows/preparation.yaml@24e339c643ee01a7e008b13e40bcee4155c479fa # 0.2.3
 
   checks:
     name: 'Checks'
@@ -25,7 +25,7 @@ jobs:
     permissions:
       security-events: write
 
-    uses: eliashaeussler/gha/.github/workflows/checks.yaml@324d9fb6c8559cb70778347a5960ce6b2dec1e30 # 0.2.2
+    uses: eliashaeussler/gha/.github/workflows/checks.yaml@24e339c643ee01a7e008b13e40bcee4155c479fa # 0.2.3
     with:
       # We use the minimum supported PHP version
       php-version: 8.2 # renovate-ignore
@@ -43,7 +43,7 @@ jobs:
         typo3-version: ["13.4", "14.3"]
         dependencies: ["highest", "lowest"]
 
-    uses: eliashaeussler/gha/.github/workflows/composer-tests.yaml@324d9fb6c8559cb70778347a5960ce6b2dec1e30 # 0.2.2
+    uses: eliashaeussler/gha/.github/workflows/composer-tests.yaml@24e339c643ee01a7e008b13e40bcee4155c479fa # 0.2.3
     with:
       php-version: ${{ matrix.php-version }}
       typo3-version: ${{ matrix.typo3-version }}
@@ -56,7 +56,7 @@ jobs:
     needs: [prepare]
     if: ${{ needs.prepare.outputs.continue == 'true' }}
 
-    uses: eliashaeussler/gha/.github/workflows/composer-test-coverage.yaml@324d9fb6c8559cb70778347a5960ce6b2dec1e30 # 0.2.2
+    uses: eliashaeussler/gha/.github/workflows/composer-test-coverage.yaml@24e339c643ee01a7e008b13e40bcee4155c479fa # 0.2.3
     with:
       coverage-file: Build/tests/coverage/clover.xml
       boot-mysql: true
@@ -70,6 +70,6 @@ jobs:
     secrets:
       CROWDIN_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
 
-    uses: eliashaeussler/gha/.github/workflows/crowdin.yaml@324d9fb6c8559cb70778347a5960ce6b2dec1e30 # 0.2.2
+    uses: eliashaeussler/gha/.github/workflows/crowdin.yaml@24e339c643ee01a7e008b13e40bcee4155c479fa # 0.2.3
     with:
       project-id: 629518
