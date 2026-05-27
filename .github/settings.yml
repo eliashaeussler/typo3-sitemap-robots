@@ -92,8 +92,6 @@ rulesets:
           required_status_checks:
             - context: 'Checks / Perform Composer checks'
               integration_id: 15368
-            - context: 'Checks / Perform npm checks'
-              integration_id: 15368
             - context: 'Checks / Perform repository checks'
               integration_id: 15368
             - context: 'Tests (PHP 8.2, TYPO3 13.4 & highest dependencies) / Run tests'
