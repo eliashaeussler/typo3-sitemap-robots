@@ -39,13 +39,7 @@ return static function (RectorConfig $rectorConfig): void {
             $rootPath . '/Configuration',
             $rootPath . '/Tests',
         )
-        ->not(
-            $rootPath . '/.Build/*',
-            $rootPath . '/.github/*',
-            $rootPath . '/Tests/CGL/vendor/*',
-            $rootPath . '/var/*',
-        )
-        ->withPHPUnit(Version::createMajor(11))
+        ->withPHPUnit()
         ->withSymfony()
         ->withTYPO3()
         ->skip(AnnotationToAttributeRector::class, [
@@ -56,6 +50,4 @@ return static function (RectorConfig $rectorConfig): void {
         ])
         ->apply()
     ;
-
-    $rectorConfig->importNames(false, false);
 };
