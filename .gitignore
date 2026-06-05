@@ -1,4 +1,5 @@
 /.Build
 /config
+/packages
 /var
 /.php-cs-fixer.cache
