@@ -69,6 +69,9 @@
 	},
 	"extra": {
 		"typo3/cms": {
+			"Package": {
+				"providesPackages": {}
+			},
 			"extension-key": "sitemap_robots",
 			"web-dir": ".Build/web"
 		},
