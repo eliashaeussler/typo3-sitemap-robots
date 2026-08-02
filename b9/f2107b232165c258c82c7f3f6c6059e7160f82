@@ -1,0 +1,14 @@
+.github/release.yml
+  h_a1c258d8beeba3 14-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "b9f2107b232165c258c82c7f3f6c6059e7160f82",
+  "prompts": {},
+  "humans": {
+    "h_a1c258d8beeba3": {
+      "author": "Elias Häußler <elias@haeussler.dev>"
+    }
+  }
+}
